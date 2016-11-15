@@ -1,0 +1,28 @@
+ext {
+  minSdkVersion = 16
+  compileSdkVersion = 24
+  buildToolsVersion = "24.0.2"
+
+  // Dependencies
+  resources = project(':resources')
+  data = project(':data')
+  common = project(':common')
+  user = project(':user')
+  product = project(':product')
+  checkout = project(':checkout')
+  appCompatV7 = 'com.android.support:appcompat-v7:25.0.0'
+  recyclerViewV7 = 'com.android.support:recyclerview-v7:25.0.0'
+  supportDesign = 'com.android.support:design:25.0.0'
+  rxAndroid = 'io.reactivex:rxandroid:1.2.1'
+  rxJava = 'io.reactivex:rxjava:1.2.0'
+  dagger = 'com.google.dagger:dagger:2.7'
+  daggerCompiler = 'com.google.dagger:dagger-compiler:2.7'
+  butterKnife = 'com.jakewharton:butterknife:8.4.0'
+  butterKnifeCompiler = 'com.jakewharton:butterknife-compiler:8.4.0'
+  noAdapter = "vn.tiki.noadapter:noadapter:1.0.0"
+  autoValue = "com.google.auto.value:auto-value:1.2"
+
+  // Testing Dependencies
+  junit = 'junit:junit:4.12'
+  espressoCore = 'com.android.support.test.espresso:espresso-core:2.2.2'
+}

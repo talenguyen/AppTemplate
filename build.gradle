@@ -1,0 +1,69 @@
+import com.android.build.gradle.internal.tasks.AndroidTestTask
+
+buildscript {
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    classpath 'com.android.tools.build:gradle:2.2.2'
+    classpath 'com.google.gms:google-services:3.0.0'
+    classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
+  }
+}
+
+subprojects {
+  buildscript {
+    repositories {
+      jcenter()
+      mavenCentral()
+    }
+
+  }
+
+  repositories {
+    jcenter()
+    mavenCentral()
+  }
+
+  plugins.apply('checkstyle')
+
+  task('checkstyle', type: Checkstyle) {
+    configFile rootProject.file('checkstyle.xml')
+    source 'src/main/java'
+    ignoreFailures false
+    showViolations true
+    include '**/*.java'
+
+    classpath = files()
+  }
+
+  afterEvaluate {
+    tasks.findByName('check').dependsOn('checkstyle')
+
+    // The default 'assemble' task only applies to normal variants. Add test variants as well.
+    android.testVariants.all { variant ->
+      tasks.getByName('assemble').dependsOn variant.assemble
+    }
+
+    tasks.withType(AndroidTestTask) { task ->
+      task.doFirst {
+        logging.level = LogLevel.INFO
+      }
+      task.doLast {
+        logging.level = LogLevel.LIFECYCLE
+      }
+    }
+  }
+}
+
+task clean(type: Delete) {
+  delete rootProject.buildDir
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.14.1'
+  distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+}
+
+apply from: rootProject.file('dependencies.gradle')

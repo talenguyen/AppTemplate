@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="in_come">In Come</string>
+  <string name="out_come">Out Come</string>
+  <string name="greeting">Welcome %s</string>
+</resources>
