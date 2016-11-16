@@ -28,7 +28,8 @@ dependencies {
 
   compile libs.resources
   compile libs.common
-  provided libs.dagger
+  compile libs.dagger
+  annotationProcessor libs.daggerCompiler
   compile libs.butterKnife
   annotationProcessor libs.butterKnifeCompiler
 

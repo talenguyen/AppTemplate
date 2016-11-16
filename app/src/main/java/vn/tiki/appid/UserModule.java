@@ -10,6 +10,7 @@ import dagger.Provides;
  */
 @Module class UserModule {
 
+  public static final User GUEST = new User();
   private User user;
 
   UserModule(User user) {

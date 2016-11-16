@@ -4,19 +4,17 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import vn.tiki.appid.product.detail.ProductListActivity;
-import vn.tiki.appid.user.LoginActivity;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import vn.tiki.appid.common.navigating.Navigating;
+import vn.tiki.appid.user.LoginActivity;
 
 /**
  * Created by Giang Nguyen on 10/8/16.
  */
-@Module
-class AppModule {
+@Module class AppModule {
   private Application application;
 
   AppModule(Application application) {
@@ -32,11 +30,15 @@ class AppModule {
   @Provides Navigating provideNavigator() {
     return new Navigating() {
       @NonNull @Override public Intent productListActivityIntent(Context context) {
-        return new Intent(context, ProductListActivity.class);
+        return new Intent();
       }
 
       @NonNull @Override public Intent loginActivityIntent(Context context) {
         return new Intent(context, LoginActivity.class);
+      }
+
+      @NonNull @Override public Intent cartActivityIntent(Context context) {
+        return new Intent();
       }
     };
   }

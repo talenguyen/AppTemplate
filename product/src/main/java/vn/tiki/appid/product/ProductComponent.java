@@ -1,8 +1,8 @@
 package vn.tiki.appid.product;
 
-import vn.tiki.appid.product.detail.ProductListActivity;
-import vn.tiki.appid.product.list.ProductDetailActivity;
 import dagger.Subcomponent;
+import vn.tiki.appid.product.detail.ProductDetailActivity;
+import vn.tiki.appid.product.list.ProductListActivity;
 
 /**
  * Created by Giang Nguyen on 11/14/16.

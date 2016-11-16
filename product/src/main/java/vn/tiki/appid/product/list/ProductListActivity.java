@@ -8,7 +8,7 @@ import vn.tiki.appid.product.ProductModule;
  * Created by Giang Nguyen on 11/15/16.
  */
 
-public class ProductDetailActivity extends BaseActivity {
+public class ProductListActivity extends BaseActivity {
   private ProductComponent productComponent;
 
   private ProductComponent productComponent() {

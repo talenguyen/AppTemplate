@@ -12,6 +12,7 @@ import rx.functions.Action1;
  */
 
 public class UserModel {
+  public static final User GUEST = new User();
   private User user;
 
   public Observable<User> getUser() {

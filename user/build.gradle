@@ -27,7 +27,8 @@ dependencies {
   compile libs.appCompatV7
   compile libs.resources
   compile libs.common
-  provided libs.dagger
+  compile libs.dagger
+  annotationProcessor libs.daggerCompiler
 
   // Test
   testCompile libs.junit

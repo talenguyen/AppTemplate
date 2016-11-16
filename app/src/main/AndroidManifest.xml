@@ -2,15 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.tiki.appid">
 
-
   <application
-      android:name="com.tiki.appid.vn.tiki.appid.AgoraApplication"
+      android:name="vn.tiki.appid.MyApplication"
       android:allowBackup="true"
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name="com.tiki.appid.vn.tiki.appid.SplashActivity">
+    <activity android:name="vn.tiki.appid.SplashActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
@@ -18,11 +17,11 @@
       </intent-filter>
     </activity>
     <activity
-        android:name=".home.HomeActivity"
+        android:name="vn.tiki.appid.product.detail.ProductDetailActivity"
         android:theme="@style/AppTheme">
     </activity>
     <activity
-        android:name="com.tiki.appid.vn.tiki.appid.user.LoginActivity"
+        android:name="vn.tiki.appid.checkout.cart.CartActivity"
         android:theme="@style/AppTheme">
     </activity>
   </application>
