@@ -14,9 +14,18 @@ android {
   dataBinding {
     enabled true
   }
+  signingConfigs {
+    release {
+      storeFile file('./debug.keystore')
+      keyAlias 'android'
+      keyPassword 'androiddebug'
+      storePassword 'android'
+    }
+  }
   buildTypes {
     release {
       minifyEnabled false
+      signingConfig signingConfigs.release
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
@@ -42,5 +51,4 @@ dependencies {
   androidTestCompile(rootProject.ext.espressoCore, {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-
 }
