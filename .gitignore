@@ -10,3 +10,5 @@
 .idea/
 .idea/
 .okbuck
+.buckd/
+buck-out/

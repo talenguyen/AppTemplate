@@ -6,6 +6,7 @@ import vn.tiki.appid.common.TheApp;
 import vn.tiki.appid.common.base.BaseActivity;
 import vn.tiki.appid.common.navigating.Navigating;
 import vn.tiki.appid.data.entity.User;
+import vn.tiki.appid.data.exception.UserNotFoundException;
 import vn.tiki.appid.data.model.UserModel;
 import javax.inject.Inject;
 import rx.Subscription;

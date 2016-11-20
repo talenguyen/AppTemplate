@@ -24,6 +24,10 @@
         android:name="vn.tiki.appid.checkout.cart.CartActivity"
         android:theme="@style/AppTheme">
     </activity>
+    <activity
+        android:name="vn.tiki.appid.user.LoginActivity"
+        android:theme="@style/AppTheme">
+    </activity>
   </application>
 
 </manifest>
