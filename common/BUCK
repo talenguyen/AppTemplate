@@ -1,20 +1,9 @@
-java_library(
-	name = 'apt_jar_debug',
-	deps = [
-		'//.okbuck/cache:com.android.databinding.baseLibrary-2.2.2.jar',
-		'//.okbuck/cache:com.android.databinding.compiler-2.2.2.jar',
-		'//.okbuck/cache:com.googlecode.juniversalchardet.juniversalchardet-1.0.3.jar',
-	],
-)
-
 android_resource(
 	name = 'res_main',
 	res = 'src/main/res',
 	package = 'com.tiki.appid.common',
 	resource_union = True,
 	deps = [
-		'//.okbuck/cache:com.android.databinding.adapters-1.2.1.aar',
-		'//.okbuck/cache:com.android.databinding.library-1.2.1.aar',
 		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.0.aar',
@@ -51,22 +40,9 @@ android_library(
 		'src/main/java/**/*.java',
 	]),
 	manifest = 'build/okbuck/debug/AndroidManifest.xml',
-	annotation_processors = [
-		'android.databinding.annotationprocessor.ProcessDataBinding',
-	],
-	annotation_processor_deps = [
-		':apt_jar_debug',
-	],
-	provided_deps = [
-		'//.okbuck/cache:com.android.databinding.compiler-2.2.2.jar',
-		'//.okbuck/cache:com.googlecode.juniversalchardet.juniversalchardet-1.0.3.jar',
-	],
 	source = '7',
 	target = '7',
 	deps = [
-		'//.okbuck/cache:com.android.databinding.adapters-1.2.1.aar',
-		'//.okbuck/cache:com.android.databinding.baseLibrary-2.2.2.jar',
-		'//.okbuck/cache:com.android.databinding.library-1.2.1.aar',
 		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.support-annotations-25.0.0.jar',
@@ -91,15 +67,6 @@ android_library(
 	],
 )
 
-java_library(
-	name = 'apt_jar_release',
-	deps = [
-		'//.okbuck/cache:com.android.databinding.baseLibrary-2.2.2.jar',
-		'//.okbuck/cache:com.android.databinding.compiler-2.2.2.jar',
-		'//.okbuck/cache:com.googlecode.juniversalchardet.juniversalchardet-1.0.3.jar',
-	],
-)
-
 android_build_config(
 	name = 'build_config_release',
 	package = 'com.tiki.appid.common',
@@ -119,22 +86,9 @@ android_library(
 		'src/main/java/**/*.java',
 	]),
 	manifest = 'build/okbuck/release/AndroidManifest.xml',
-	annotation_processors = [
-		'android.databinding.annotationprocessor.ProcessDataBinding',
-	],
-	annotation_processor_deps = [
-		':apt_jar_release',
-	],
-	provided_deps = [
-		'//.okbuck/cache:com.android.databinding.compiler-2.2.2.jar',
-		'//.okbuck/cache:com.googlecode.juniversalchardet.juniversalchardet-1.0.3.jar',
-	],
 	source = '7',
 	target = '7',
 	deps = [
-		'//.okbuck/cache:com.android.databinding.adapters-1.2.1.aar',
-		'//.okbuck/cache:com.android.databinding.baseLibrary-2.2.2.jar',
-		'//.okbuck/cache:com.android.databinding.library-1.2.1.aar',
 		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.support-annotations-25.0.0.jar',

@@ -1,13 +1,10 @@
 java_library(
 	name = 'apt_jar_debug',
 	deps = [
-		'//.okbuck/cache:com.android.databinding.baseLibrary-2.2.2.jar',
-		'//.okbuck/cache:com.android.databinding.compiler-2.2.2.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-2.7.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-compiler-2.7.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-producers-2.7.jar',
 		'//.okbuck/cache:com.google.guava.guava-19.0.jar',
-		'//.okbuck/cache:com.googlecode.juniversalchardet.juniversalchardet-1.0.3.jar',
 		'//.okbuck/cache:javax.inject.javax.inject-1.jar',
 	],
 )
@@ -18,9 +15,6 @@ android_resource(
 	package = 'com.tiki.appid.data',
 	resource_union = True,
 	deps = [
-		'//.okbuck/cache:com.android.databinding.adapters-1.2.1.aar',
-		'//.okbuck/cache:com.android.databinding.library-1.2.1.aar',
-		'//.okbuck/cache:com.android.support.support-v4-25.0.0.aar',
 		'//.okbuck/cache:io.reactivex.rxandroid-1.2.1.aar',
 	],
 	visibility = [
@@ -48,27 +42,19 @@ android_library(
 	]),
 	manifest = 'build/okbuck/debug/AndroidManifest.xml',
 	annotation_processors = [
-		'android.databinding.annotationprocessor.ProcessDataBinding',
 		'dagger.internal.codegen.ComponentProcessor',
 	],
 	annotation_processor_deps = [
 		':apt_jar_debug',
 	],
 	provided_deps = [
-		'//.okbuck/cache:com.android.databinding.compiler-2.2.2.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-compiler-2.7.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-producers-2.7.jar',
 		'//.okbuck/cache:com.google.guava.guava-19.0.jar',
-		'//.okbuck/cache:com.googlecode.juniversalchardet.juniversalchardet-1.0.3.jar',
 	],
 	source = '7',
 	target = '7',
 	deps = [
-		'//.okbuck/cache:com.android.databinding.adapters-1.2.1.aar',
-		'//.okbuck/cache:com.android.databinding.baseLibrary-2.2.2.jar',
-		'//.okbuck/cache:com.android.databinding.library-1.2.1.aar',
-		'//.okbuck/cache:com.android.support.support-annotations-25.0.0.jar',
-		'//.okbuck/cache:com.android.support.support-v4-25.0.0.aar',
 		'//.okbuck/cache:com.google.dagger.dagger-2.7.jar',
 		'//.okbuck/cache:io.reactivex.rxandroid-1.2.1.aar',
 		'//.okbuck/cache:io.reactivex.rxjava-1.2.2.jar',
@@ -84,13 +70,10 @@ android_library(
 java_library(
 	name = 'apt_jar_release',
 	deps = [
-		'//.okbuck/cache:com.android.databinding.baseLibrary-2.2.2.jar',
-		'//.okbuck/cache:com.android.databinding.compiler-2.2.2.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-2.7.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-compiler-2.7.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-producers-2.7.jar',
 		'//.okbuck/cache:com.google.guava.guava-19.0.jar',
-		'//.okbuck/cache:com.googlecode.juniversalchardet.juniversalchardet-1.0.3.jar',
 		'//.okbuck/cache:javax.inject.javax.inject-1.jar',
 	],
 )
@@ -115,27 +98,19 @@ android_library(
 	]),
 	manifest = 'build/okbuck/release/AndroidManifest.xml',
 	annotation_processors = [
-		'android.databinding.annotationprocessor.ProcessDataBinding',
 		'dagger.internal.codegen.ComponentProcessor',
 	],
 	annotation_processor_deps = [
 		':apt_jar_release',
 	],
 	provided_deps = [
-		'//.okbuck/cache:com.android.databinding.compiler-2.2.2.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-compiler-2.7.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-producers-2.7.jar',
 		'//.okbuck/cache:com.google.guava.guava-19.0.jar',
-		'//.okbuck/cache:com.googlecode.juniversalchardet.juniversalchardet-1.0.3.jar',
 	],
 	source = '7',
 	target = '7',
 	deps = [
-		'//.okbuck/cache:com.android.databinding.adapters-1.2.1.aar',
-		'//.okbuck/cache:com.android.databinding.baseLibrary-2.2.2.jar',
-		'//.okbuck/cache:com.android.databinding.library-1.2.1.aar',
-		'//.okbuck/cache:com.android.support.support-annotations-25.0.0.jar',
-		'//.okbuck/cache:com.android.support.support-v4-25.0.0.aar',
 		'//.okbuck/cache:com.google.dagger.dagger-2.7.jar',
 		'//.okbuck/cache:io.reactivex.rxandroid-1.2.1.aar',
 		'//.okbuck/cache:io.reactivex.rxjava-1.2.2.jar',

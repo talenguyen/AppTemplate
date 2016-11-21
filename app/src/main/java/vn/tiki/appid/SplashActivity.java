@@ -2,15 +2,14 @@ package vn.tiki.appid;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import javax.inject.Inject;
+import rx.Subscription;
+import rx.functions.Action1;
 import vn.tiki.appid.common.TheApp;
 import vn.tiki.appid.common.base.BaseActivity;
 import vn.tiki.appid.common.navigating.Navigating;
 import vn.tiki.appid.data.entity.User;
-import vn.tiki.appid.data.exception.UserNotFoundException;
 import vn.tiki.appid.data.model.UserModel;
-import javax.inject.Inject;
-import rx.Subscription;
-import rx.functions.Action1;
 
 /**
  * Created by Giang Nguyen on 10/8/16.
@@ -27,6 +26,7 @@ public class SplashActivity extends BaseActivity {
 
     injector().inject(this);
   }
+
 
   @Override protected void onResume() {
     super.onResume();

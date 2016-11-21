@@ -4,15 +4,12 @@ android {
   compileSdkVersion rootProject.ext.compileSdkVersion
   buildToolsVersion rootProject.ext.buildToolsVersion
   defaultConfig {
-    applicationId "com.wata.agora"
+    applicationId "vn.tiki.appid"
     minSdkVersion rootProject.ext.minSdkVersion
     targetSdkVersion rootProject.ext.compileSdkVersion
     versionCode 1
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-  }
-  dataBinding {
-    enabled true
   }
   signingConfigs {
     release {

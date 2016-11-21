@@ -1,5 +1,8 @@
 package vn.tiki.appid.user;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import com.tiki.appid.user.R;
 import vn.tiki.appid.common.TheApp;
 import vn.tiki.appid.common.base.BaseActivity;
 import vn.tiki.appid.common.di.Injector;
@@ -20,6 +23,16 @@ public class LoginActivity extends BaseActivity
       loginComponent = superComponent().plus(new LoginModule());
     }
     return loginComponent;
+  }
+
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_login);
+    if (savedInstanceState == null) {
+      getSupportFragmentManager().beginTransaction()
+          .add(R.id.contentView, new SignInFragment())
+          .commit();
+    }
   }
 
   @Override public void inject(Object object) {
