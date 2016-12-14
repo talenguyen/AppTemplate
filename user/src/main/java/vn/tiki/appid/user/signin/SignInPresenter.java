@@ -1,7 +1,6 @@
 package vn.tiki.appid.user.signin;
 
 import android.util.Log;
-import hugo.weaving.DebugLog;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -23,7 +22,6 @@ public class SignInPresenter extends MvpPresenter<SignInView> {
 
   private static final String TAG = "SignInPresenter";
 
-  @DebugLog
   public SignInPresenter(UserModel userModel) {
     this.userModel = userModel;
     Log.d(TAG, "SignInPresenter: ");
