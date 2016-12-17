@@ -1,6 +1,8 @@
 package vn.tiki.appid.common.base;
 
 import android.support.annotation.Nullable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import java.lang.ref.WeakReference;
 
 /**
@@ -9,6 +11,8 @@ import java.lang.ref.WeakReference;
 
 public abstract class MvpPresenter<MvpView> {
 
+  private final CompositeDisposable disposables = new CompositeDisposable();
+
   private WeakReference<MvpView> viewRef;
 
   @Nullable public MvpView getView() {
@@ -16,12 +20,17 @@ public abstract class MvpPresenter<MvpView> {
   }
 
   public void attachView(MvpView view) {
-    this.viewRef = new WeakReference<MvpView>(view);
+    this.viewRef = new WeakReference<>(view);
   }
 
-  public void detachView() {
+  protected void autoDispose(Disposable disposable) {
+    disposables.add(disposable);
+  }
+
+  void detachView() {
     if (viewRef != null) {
       viewRef.clear();
     }
+    disposables.clear();
   }
 }

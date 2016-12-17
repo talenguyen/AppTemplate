@@ -35,11 +35,17 @@ dependencies {
   def libs = rootProject.ext
 
   compile fileTree(dir: 'libs', include: ['*.jar'])
+  // app's modules
+  compile libs.resources
+  compile libs.data
+  compile libs.common
+  compile libs.home
+
+  // Support libraries
   compile libs.appCompatV7
   compile libs.supportDesign
-  compile libs.product
-  compile libs.checkout
-  compile libs.user
+
+  // Other libraries
   compile libs.dagger
   annotationProcessor libs.daggerCompiler
 

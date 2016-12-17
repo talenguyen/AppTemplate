@@ -1,11 +1,11 @@
 package vn.tiki.appid.data.model;
 
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
+import java.util.concurrent.Callable;
 import vn.tiki.appid.data.entity.User;
 import vn.tiki.appid.data.exception.AuthenticationException;
 import vn.tiki.appid.data.exception.UserNotFoundException;
-import java.util.concurrent.Callable;
-import rx.Observable;
-import rx.functions.Action1;
 
 /**
  * Created by Giang Nguyen on 11/14/16.
@@ -29,7 +29,7 @@ public class UserModel {
   public Observable<User> login(final String email, final String password) {
     return Observable.fromCallable(new Callable<User>() {
       @Override public User call() throws Exception {
-        if (!"user@wata.com".equals(email) || !"123456".equals(password)) {
+        if (!"user@tiki.vn".equals(email) || !"123456".equals(password)) {
           throw new AuthenticationException();
         }
         return new User();
@@ -37,9 +37,9 @@ public class UserModel {
     }).doOnNext(setUser());
   }
 
-  private Action1<? super User> setUser() {
-    return new Action1<User>() {
-      @Override public void call(User user) {
+  private Consumer<? super User> setUser() {
+    return new Consumer<User>() {
+      @Override public void accept(User user) throws Exception {
         UserModel.this.user = user;
       }
     };

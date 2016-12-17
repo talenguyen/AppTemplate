@@ -1,10 +1,7 @@
 package vn.tiki.appid;
 
-import rx.plugins.RxJavaHooks;
 import vn.tiki.appid.common.TheApp;
 import vn.tiki.appid.data.DataModule;
-import vn.tiki.appid.data.entity.User;
-import vn.tiki.appid.user.LoginModule;
 
 /**
  * Created by Giang Nguyen on 10/8/16.
@@ -13,24 +10,14 @@ import vn.tiki.appid.user.LoginModule;
 public class MyApplication extends TheApp {
 
   private AppComponent appComponent;
-  private UserComponent userComponent;
 
   @Override public void onCreate() {
-    RxJavaHooks.enableAssemblyTracking();
     super.onCreate();
 
     appComponent = DaggerAppComponent.builder()
         .appModule(new AppModule(this))
         .dataModule(new DataModule())
         .build();
-  }
-
-  @Override public void setUser(User user) {
-    if (user == null) {
-      userComponent = null;
-    } else {
-      userComponent = appComponent.plus(new UserModule(user));
-    }
   }
 
   @Override public void inject(Object object) {
@@ -41,9 +28,9 @@ public class MyApplication extends TheApp {
 
   @SuppressWarnings("unchecked")
   @Override public <T> T plus(Object module) {
-    if (module instanceof LoginModule) {
-      return (T) appComponent.plus((LoginModule) module);
-    }
+    //if (module instanceof LoginModule) {
+    //  return (T) appComponent.plus((LoginModule) module);
+    //}
     //else if (module instanceof ProductModule) {
     //  return (T) userComponent.plus((ProductModule) module);
     //} else if (module instanceof CheckoutModule) {

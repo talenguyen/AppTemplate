@@ -16,21 +16,23 @@ buildscript {
 
 apply plugin: 'com.uber.okbuck'
 
-subprojects {
-  buildscript {
-    repositories {
-      jcenter()
-      mavenCentral()
-      mavenLocal()
-    }
-
-  }
-
+allprojects {
   repositories {
     jcenter()
     mavenCentral()
     mavenLocal()
   }
+}
+
+task clean(type: Delete) {
+  delete rootProject.buildDir
+}
+
+apply from: 'dependencies.gradle'
+
+project.ext.preDexLibraries = !rootProject.ext.ci
+
+subprojects {
 
   plugins.apply('checkstyle')
 
@@ -44,14 +46,19 @@ subprojects {
     classpath = files()
   }
 
-  group = GROUP
-
   afterEvaluate {
+    project.plugins.whenPluginAdded { plugin ->
+      if ("com.android.build.gradle.AppPlugin".equals(plugin.class.name)) {
+        project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibraries
+      } else if ("com.android.build.gradle.LibraryPlugin".equals(plugin.class.name)) {
+        project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibraries
+      }
+    }
+
     tasks.findByName('check').dependsOn('checkstyle')
 
     // The default 'assemble' task only applies to normal variants. Add test variants as well.
-    android.testVariants.all { variant ->
-      tasks.getByName('assemble').dependsOn variant.assemble
+    android.testVariants.all { variant -> tasks.getByName('assemble').dependsOn variant.assemble
     }
 
     tasks.withType(AndroidTestTask) { task ->
@@ -64,14 +71,3 @@ subprojects {
     }
   }
 }
-
-task clean(type: Delete) {
-  delete rootProject.buildDir
-}
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '2.14.1'
-  distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
-}
-
-apply from: rootProject.file('dependencies.gradle')

@@ -1,4 +1,4 @@
-package vn.tiki.appid.product;
+package vn.tiki.appid.home;
 
 import dagger.Module;
 

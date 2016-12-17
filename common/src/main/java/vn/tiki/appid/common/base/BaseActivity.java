@@ -11,6 +11,12 @@ import vn.tiki.appid.common.di.SuperComponent;
 
 public class BaseActivity extends AppCompatActivity {
 
+  private MvpPresenter<?> presenter;
+
+  protected void takePresenter(MvpPresenter<?> presenter) {
+    this.presenter = presenter;
+  }
+
   protected Injector injector() {
     return TheApp.get(this);
   }
@@ -19,4 +25,10 @@ public class BaseActivity extends AppCompatActivity {
     return TheApp.get(this);
   }
 
+  @Override protected void onStop() {
+    super.onStop();
+    if (presenter != null) {
+      presenter.detachView();
+    }
+  }
 }

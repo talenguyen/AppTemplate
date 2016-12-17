@@ -1,10 +1,10 @@
 package vn.tiki.appid;
 
-import vn.tiki.appid.data.DataModule;
-import vn.tiki.appid.user.LoginComponent;
-import vn.tiki.appid.user.LoginModule;
 import dagger.Component;
 import javax.inject.Singleton;
+import vn.tiki.appid.data.DataModule;
+import vn.tiki.appid.home.HomeComponent;
+import vn.tiki.appid.home.HomeModule;
 
 /**
  * Created by Giang Nguyen on 10/8/16.
@@ -16,10 +16,7 @@ import javax.inject.Singleton;
 })
 interface AppComponent {
 
-  UserComponent plus(UserModule userModule);
-
-  LoginComponent plus(LoginModule loginModule);
-
   void inject(SplashActivity splashActivity);
 
+  HomeComponent plus(HomeModule homeModule);
 }

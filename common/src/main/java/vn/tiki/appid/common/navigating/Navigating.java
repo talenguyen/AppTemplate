@@ -10,9 +10,6 @@ import android.support.annotation.NonNull;
 
 public interface Navigating {
 
-  @NonNull Intent productListActivityIntent(Context context);
+  @NonNull Intent homeActivityIntent(Context context);
 
-  @NonNull Intent loginActivityIntent(Context context);
-
-  @NonNull Intent cartActivityIntent(Context context);
 }

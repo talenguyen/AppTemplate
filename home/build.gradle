@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.github.dcendents.android-maven'
+
+version = VERSION_NAME
+
+android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+
+  defaultConfig {
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.compileSdkVersion
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+  def libs = rootProject.ext
+
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+
+  compile libs.resources
+  compile libs.common
+  compile libs.data
+
+  compile libs.supportDesign
+
+  compile libs.dagger
+  annotationProcessor libs.daggerCompiler
+
+  compile libs.butterKnife
+  annotationProcessor libs.butterKnifeCompiler
+  // Test
+  testCompile libs.junit
+  androidTestCompile(libs.espressoCore, {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
+}

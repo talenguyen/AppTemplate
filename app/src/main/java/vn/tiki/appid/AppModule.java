@@ -9,7 +9,7 @@ import dagger.Provides;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import vn.tiki.appid.common.navigating.Navigating;
-import vn.tiki.appid.user.LoginActivity;
+import vn.tiki.appid.home.HomeActivity;
 
 /**
  * Created by Giang Nguyen on 10/8/16.
@@ -29,16 +29,8 @@ import vn.tiki.appid.user.LoginActivity;
 
   @Provides Navigating provideNavigator() {
     return new Navigating() {
-      @NonNull @Override public Intent productListActivityIntent(Context context) {
-        return new Intent();
-      }
-
-      @NonNull @Override public Intent loginActivityIntent(Context context) {
-        return new Intent(context, LoginActivity.class);
-      }
-
-      @NonNull @Override public Intent cartActivityIntent(Context context) {
-        return new Intent();
+      @NonNull @Override public Intent homeActivityIntent(Context context) {
+        return new Intent(context, HomeActivity.class);
       }
     };
   }

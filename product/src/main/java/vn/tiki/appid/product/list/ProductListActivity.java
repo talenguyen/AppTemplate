@@ -1,8 +1,8 @@
-package vn.tiki.appid.product.list;
+package vn.tiki.appid.home.list;
 
 import vn.tiki.appid.common.base.BaseActivity;
-import vn.tiki.appid.product.ProductComponent;
-import vn.tiki.appid.product.ProductModule;
+import vn.tiki.appid.home.ProductComponent;
+import vn.tiki.appid.home.ProductModule;
 
 /**
  * Created by Giang Nguyen on 11/15/16.
