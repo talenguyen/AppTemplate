@@ -2,9 +2,11 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:showIn="@layout/activity_home">
 
   <android.support.design.widget.AppBarLayout
       android:layout_width="match_parent"
@@ -17,11 +19,38 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         android:title="@string/name"
-        app:layout_scrollFlags="scroll|enterAlways"
         app:navigationIcon="@drawable/ic_burger_menu_24dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:titleTextColor="@android:color/white"/>
 
+    <vn.tiki.appid.common.widget.ForegroundLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_white_rect_2dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+    >
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="8dp"
+          android:src="@drawable/ic_search_gray_24dp"
+      />
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:ellipsize="end"
+          android:text="@string/search_for_products_brands_and_more"/>
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="8dp"
+          android:src="@drawable/ic_barcode_24dp"
+      />
+    </vn.tiki.appid.common.widget.ForegroundLinearLayout>
   </android.support.design.widget.AppBarLayout>
 
   <android.support.v7.widget.RecyclerView
