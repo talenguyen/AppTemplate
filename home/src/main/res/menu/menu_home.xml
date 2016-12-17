@@ -11,7 +11,7 @@
   <item
       android:id="@+id/action_cart"
       android:icon="@drawable/ic_cart_24dp"
-      android:title="@string/notification"
+      android:title="@string/cart"
       app:showAsAction="ifRoom"
   />
 </menu>
