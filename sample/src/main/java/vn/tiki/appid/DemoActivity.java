@@ -8,7 +8,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.tiki.appid.R;
 import vn.tiki.appid.common.base.BaseActivity;
-import vn.tiki.appid.common.widget.SingleChildFrameLayout;
+import vn.tiki.appid.common.widget.SingleVisibleChildFrameLayout;
 
 /**
  * Created by Giang Nguyen on 12/27/16.
@@ -17,7 +17,7 @@ import vn.tiki.appid.common.widget.SingleChildFrameLayout;
 public class DemoActivity extends BaseActivity {
 
   private static final String TAG = "DemoActivity";
-  @BindView(R.id.vContent) SingleChildFrameLayout vContent;
+  @BindView(R.id.vContent) SingleVisibleChildFrameLayout vContent;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

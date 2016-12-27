@@ -19,9 +19,11 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         android:title="@string/name"
+        app:elevation="0dp"
         app:navigationIcon="@drawable/ic_burger_menu_24dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:titleTextColor="@android:color/white"/>
+        app:titleTextColor="@android:color/white"
+    />
 
     <vn.tiki.appid.common.widget.ForegroundLinearLayout
         android:layout_width="match_parent"
@@ -53,10 +55,11 @@
     </vn.tiki.appid.common.widget.ForegroundLinearLayout>
   </android.support.design.widget.AppBarLayout>
 
-  <android.support.v7.widget.RecyclerView
-      android:id="@+id/rvList"
+  <FrameLayout
+      android:id="@+id/fragmentContainer"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+  />
 
 </android.support.design.widget.CoordinatorLayout>

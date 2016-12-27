@@ -36,8 +36,14 @@ dependencies {
   compile libs.dagger
   annotationProcessor libs.daggerCompiler
 
+  provided libs.autoValue
+  annotationProcessor libs.autoValue
+
   compile libs.butterKnife
   annotationProcessor libs.butterKnifeCompiler
+
+  compile libs.noAdapter
+
   // Test
   testCompile libs.junit
   androidTestCompile(libs.espressoCore, {

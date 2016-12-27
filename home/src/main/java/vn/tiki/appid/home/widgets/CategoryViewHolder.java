@@ -16,13 +16,14 @@ import vn.tiki.noadapter.AbsViewHolder;
 /**
  * Created by Giang Nguyen on 12/27/16.
  */
-public class CategoryViewHolder extends AbsViewHolder {
+class CategoryViewHolder extends AbsViewHolder {
   private final Unbinder unbinder;
   @BindView(R2.id.ivIcon) ImageView ivIcon;
   @BindView(R2.id.tvName) TextView tvName;
 
-  public CategoryViewHolder(View itemView) {
+  private CategoryViewHolder(View itemView) {
     super(itemView);
+    itemView.setOnClickListener(this);
     unbinder = ButterKnife.bind(this, itemView);
   }
 

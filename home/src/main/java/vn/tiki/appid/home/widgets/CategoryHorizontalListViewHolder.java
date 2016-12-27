@@ -24,7 +24,7 @@ public class CategoryHorizontalListViewHolder extends AbsViewHolder {
   private final OnlyAdapter adapter;
   @BindView(R2.id.rvList) RecyclerView rvList;
 
-  public CategoryHorizontalListViewHolder(View itemView) {
+  private CategoryHorizontalListViewHolder(View itemView) {
     super(itemView);
     unbinder = ButterKnife.bind(this, itemView);
     adapter = new OnlyAdapter.Builder()
@@ -34,6 +34,7 @@ public class CategoryHorizontalListViewHolder extends AbsViewHolder {
           }
         })
         .build();
+
     rvList.setLayoutManager(new GridLayoutManager(itemView.getContext(), 5,
         LinearLayoutManager.VERTICAL, false));
 

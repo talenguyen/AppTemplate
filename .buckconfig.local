@@ -1,6 +1,8 @@
 [alias]
 	appDebug = //app:bin_debug
 	appRelease = //app:bin_release
+	sampleDebug = //sample:bin_debug
+	sampleRelease = //sample:bin_release
 
 [android]
 	build_tools_version = 24.0.2

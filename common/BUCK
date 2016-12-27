@@ -6,6 +6,7 @@ android_resource(
 	deps = [
 		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-core-ui-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-core-utils-25.0.0.aar',
@@ -15,6 +16,7 @@ android_resource(
 		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:io.reactivex.rxjava2.rxandroid-2.0.1.aar',
 		'//data:res_main',
+		'//resources:res_main',
 	],
 	visibility = [
 		'PUBLIC',
@@ -45,6 +47,7 @@ android_library(
 	deps = [
 		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-annotations-25.0.1.jar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-core-ui-25.0.1.aar',
@@ -60,6 +63,8 @@ android_library(
 		'//.okbuck/cache:org.reactivestreams.reactive-streams-1.0.0.jar',
 		'//data:res_main',
 		'//data:src_release',
+		'//resources:res_main',
+		'//resources:src_release',
 		':build_config_debug',
 		':res_main',
 	],
@@ -92,6 +97,7 @@ android_library(
 	deps = [
 		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-annotations-25.0.1.jar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-core-ui-25.0.1.aar',
@@ -107,6 +113,8 @@ android_library(
 		'//.okbuck/cache:org.reactivestreams.reactive-streams-1.0.0.jar',
 		'//data:res_main',
 		'//data:src_release',
+		'//resources:res_main',
+		'//resources:src_release',
 		':build_config_release',
 		':res_main',
 	],

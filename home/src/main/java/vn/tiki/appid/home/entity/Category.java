@@ -12,11 +12,11 @@ public abstract class Category {
 
   public abstract int icon();
 
-  public static Builder builder(Category source) {
+  public static Builder category(Category source) {
     return new AutoValue_Category.Builder(source);
   }
 
-  public static Builder builder() {
+  public static Builder category() {
     return new AutoValue_Category.Builder();
   }
 

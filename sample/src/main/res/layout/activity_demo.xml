@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-  <vn.tiki.appid.common.widget.SingleChildFrameLayout android:id="@+id/vContent"
-                                                      android:layout_width="match_parent"
-                                                      android:layout_height="0dp"
-                                                      android:layout_weight="1"
-                                                      android:animateLayoutChanges="true"
+  <vn.tiki.appid.common.widget.SingleVisibleChildFrameLayout android:id="@+id/vContent"
+                                                             android:layout_width="match_parent"
+                                                             android:layout_height="0dp"
+                                                             android:layout_weight="1"
+                                                             android:animateLayoutChanges="true"
   >
     <ViewStub android:id="@+id/vLoading"
               android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
               android:layout_gravity="center"
               android:layout="@layout/view_error_network"
     />
-  </vn.tiki.appid.common.widget.SingleChildFrameLayout>
+  </vn.tiki.appid.common.widget.SingleVisibleChildFrameLayout>
 
   <Button android:id="@+id/btShowLoading"
           android:layout_width="match_parent"
