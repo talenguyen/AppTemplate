@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+  <vn.tiki.appid.common.widget.SingleChildFrameLayout android:id="@+id/vContent"
+                                                      android:layout_width="match_parent"
+                                                      android:layout_height="0dp"
+                                                      android:layout_weight="1"
+                                                      android:animateLayoutChanges="true"
+  >
+    <ViewStub android:id="@+id/vLoading"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout="@layout/view_loading"
+    />
+    <ViewStub android:id="@+id/vError"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout="@layout/view_error"
+    />
+    <ViewStub android:id="@+id/vErrorNetwork"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout="@layout/view_error_network"
+    />
+  </vn.tiki.appid.common.widget.SingleChildFrameLayout>
+
+  <Button android:id="@+id/btShowLoading"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="show loading"
+  />
+  <Button android:id="@+id/btShowErrorConnection"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="show error connection"
+  />
+  <Button android:id="@+id/btShowError"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="show error"
+  />
+</LinearLayout>

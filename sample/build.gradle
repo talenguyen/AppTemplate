@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+
+android {
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
+  defaultConfig {
+    applicationId "vn.tiki.appid"
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.compileSdkVersion
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  signingConfigs {
+    release {
+      storeFile file('./debug.keystore')
+      keyAlias 'android'
+      keyPassword 'androiddebug'
+      storePassword 'android'
+    }
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      signingConfig signingConfigs.release
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+  lintOptions {
+    abortOnError false
+  }
+}
+
+dependencies {
+  def libs = rootProject.ext
+
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+  // app's modules
+  compile libs.resources
+  compile libs.data
+  compile libs.common
+  compile libs.home
+
+  // Support libraries
+  compile libs.appCompatV7
+  compile libs.supportDesign
+
+  // Other libraries
+  compile libs.dagger
+  annotationProcessor libs.daggerCompiler
+
+  compile libs.butterKnife
+  annotationProcessor libs.butterKnifeCompiler
+
+  // Test
+  testCompile libs.junit
+  androidTestCompile(rootProject.ext.espressoCore, {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
+}
