@@ -1,5 +1,6 @@
 package vn.tiki.appid;
 
+import com.squareup.leakcanary.LeakCanary;
 import vn.tiki.appid.common.TheApp;
 import vn.tiki.appid.data.DataModule;
 import vn.tiki.appid.home.HomeModule;
@@ -19,6 +20,10 @@ public class MyApplication extends TheApp {
         .appModule(new AppModule(this))
         .dataModule(new DataModule())
         .build();
+
+    if (!LeakCanary.isInAnalyzerProcess(this)) {
+      LeakCanary.install(this);
+    }
   }
 
   @Override public void inject(Object object) {

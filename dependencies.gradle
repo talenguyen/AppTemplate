@@ -27,6 +27,8 @@ ext {
   autoValue = 'com.google.auto.value:auto-value:1.2'
   autoValueParcel = 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
   autoValueParcelAdapter = 'com.ryanharter.auto.value:auto-value-parcel-adapter:0.2.5'
+  leakCanary = 'com.squareup.leakcanary:leakcanary-android:1.5'
+  leakCanaryNoOp = 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
   // Testing Dependencies
   junit = 'junit:junit:4.12'

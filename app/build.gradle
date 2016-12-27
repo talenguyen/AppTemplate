@@ -49,6 +49,10 @@ dependencies {
   compile libs.dagger
   annotationProcessor libs.daggerCompiler
 
+  debugCompile libs.leakCanary
+  releaseCompile libs.leakCanaryNoOp
+  testCompile libs.leakCanaryNoOp
+
   // Test
   testCompile libs.junit
   androidTestCompile(rootProject.ext.espressoCore, {
