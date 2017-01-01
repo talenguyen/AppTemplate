@@ -15,12 +15,12 @@ import com.tiki.appid.common.R;
 
 public class ForegroundLinearLayout extends LinearLayoutCompat {
 
-  private final Rect mSelfBounds = new Rect();
-  private final Rect mOverlayBounds = new Rect();
-  protected boolean mForegroundInPadding = true;
-  boolean mForegroundBoundsChanged = false;
-  private Drawable mForeground;
-  private int mForegroundGravity = Gravity.FILL;
+  private final Rect selfBounds = new Rect();
+  private final Rect overlayBounds = new Rect();
+  protected boolean foregroundInPadding = true;
+  boolean foregroundBoundsChanged = false;
+  private Drawable foreground;
+  private int foregroundGravity = Gravity.FILL;
 
   public ForegroundLinearLayout(Context context) {
     this(context, null);
@@ -36,15 +36,15 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
     TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ForegroundLinearLayout,
         defStyle, 0);
 
-    mForegroundGravity = a.getInt(
-        R.styleable.ForegroundLinearLayout_android_foregroundGravity, mForegroundGravity);
+    foregroundGravity = a.getInt(
+        R.styleable.ForegroundLinearLayout_android_foregroundGravity, foregroundGravity);
 
     final Drawable d = a.getDrawable(R.styleable.ForegroundLinearLayout_android_foreground);
     if (d != null) {
       setForeground(d);
     }
 
-    mForegroundInPadding = a.getBoolean(
+    foregroundInPadding = a.getBoolean(
         R.styleable.ForegroundLinearLayout_foregroundInsidePadding, true);
 
     a.recycle();
@@ -57,7 +57,7 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
    * @see #setForegroundGravity(int)
    */
   public int getForegroundGravity() {
-    return mForegroundGravity;
+    return foregroundGravity;
   }
 
   /**
@@ -67,7 +67,7 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
    * @see #getForegroundGravity()
    */
   public void setForegroundGravity(int foregroundGravity) {
-    if (mForegroundGravity != foregroundGravity) {
+    if (this.foregroundGravity != foregroundGravity) {
       if ((foregroundGravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK) == 0) {
         foregroundGravity |= Gravity.START;
       }
@@ -76,11 +76,11 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
         foregroundGravity |= Gravity.TOP;
       }
 
-      mForegroundGravity = foregroundGravity;
+      this.foregroundGravity = foregroundGravity;
 
-      if (mForegroundGravity == Gravity.FILL && mForeground != null) {
+      if (this.foregroundGravity == Gravity.FILL && foreground != null) {
         Rect padding = new Rect();
-        mForeground.getPadding(padding);
+        foreground.getPadding(padding);
       }
 
       requestLayout();
@@ -89,22 +89,22 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
 
   @Override
   protected boolean verifyDrawable(Drawable who) {
-    return super.verifyDrawable(who) || (who == mForeground);
+    return super.verifyDrawable(who) || (who == foreground);
   }
 
   @Override
   public void jumpDrawablesToCurrentState() {
     super.jumpDrawablesToCurrentState();
-    if (mForeground != null) {
-      mForeground.jumpToCurrentState();
+    if (foreground != null) {
+      foreground.jumpToCurrentState();
     }
   }
 
   @Override
   protected void drawableStateChanged() {
     super.drawableStateChanged();
-    if (mForeground != null && mForeground.isStateful()) {
-      mForeground.setState(getDrawableState());
+    if (foreground != null && foreground.isStateful()) {
+      foreground.setState(getDrawableState());
     }
   }
 
@@ -115,7 +115,7 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
    * @return A Drawable or null if no foreground was set.
    */
   public Drawable getForeground() {
-    return mForeground;
+    return foreground;
   }
 
   /**
@@ -127,13 +127,13 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
    * @param drawable The Drawable to be drawn on top of the children.
    */
   public void setForeground(Drawable drawable) {
-    if (mForeground != drawable) {
-      if (mForeground != null) {
-        mForeground.setCallback(null);
-        unscheduleDrawable(mForeground);
+    if (foreground != drawable) {
+      if (foreground != null) {
+        foreground.setCallback(null);
+        unscheduleDrawable(foreground);
       }
 
-      mForeground = drawable;
+      foreground = drawable;
 
       if (drawable != null) {
         setWillNotDraw(false);
@@ -141,7 +141,7 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
         if (drawable.isStateful()) {
           drawable.setState(getDrawableState());
         }
-        if (mForegroundGravity == Gravity.FILL) {
+        if (foregroundGravity == Gravity.FILL) {
           Rect padding = new Rect();
           drawable.getPadding(padding);
         }
@@ -156,38 +156,38 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
   @Override
   protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
     super.onLayout(changed, left, top, right, bottom);
-    mForegroundBoundsChanged |= changed;
+    foregroundBoundsChanged |= changed;
   }
 
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
-    mForegroundBoundsChanged = true;
+    foregroundBoundsChanged = true;
   }
 
   @Override
   public void draw(@NonNull Canvas canvas) {
     super.draw(canvas);
 
-    if (mForeground != null) {
-      final Drawable foreground = mForeground;
+    if (foreground != null) {
+      final Drawable foreground = this.foreground;
 
-      if (mForegroundBoundsChanged) {
-        mForegroundBoundsChanged = false;
-        final Rect selfBounds = mSelfBounds;
-        final Rect overlayBounds = mOverlayBounds;
+      if (foregroundBoundsChanged) {
+        foregroundBoundsChanged = false;
+        final Rect selfBounds = this.selfBounds;
+        final Rect overlayBounds = this.overlayBounds;
 
         final int w = getRight() - getLeft();
         final int h = getBottom() - getTop();
 
-        if (mForegroundInPadding) {
+        if (foregroundInPadding) {
           selfBounds.set(0, 0, w, h);
         } else {
           selfBounds.set(getPaddingLeft(), getPaddingTop(),
               w - getPaddingRight(), h - getPaddingBottom());
         }
 
-        Gravity.apply(mForegroundGravity, foreground.getIntrinsicWidth(),
+        Gravity.apply(foregroundGravity, foreground.getIntrinsicWidth(),
             foreground.getIntrinsicHeight(), selfBounds, overlayBounds);
         foreground.setBounds(overlayBounds);
       }
@@ -199,8 +199,8 @@ public class ForegroundLinearLayout extends LinearLayoutCompat {
   @TargetApi(Build.VERSION_CODES.LOLLIPOP) @Override
   public void drawableHotspotChanged(float x, float y) {
     super.drawableHotspotChanged(x, y);
-    if (mForeground != null) {
-      mForeground.setHotspot(x, y);
+    if (foreground != null) {
+      foreground.setHotspot(x, y);
     }
   }
 }
