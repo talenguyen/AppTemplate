@@ -34,6 +34,7 @@ dependencies {
   compile libs.dagger
 
   testCompile libs.junit
+  testCompile libs.robolectric
   androidTestCompile(libs.espressoCore, {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
