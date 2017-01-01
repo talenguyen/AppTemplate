@@ -34,5 +34,11 @@ dependencies {
   compile libs.rxJava
   compile libs.rxAndroid
 
+  compile libs.gson
+
+  provided libs.autoValue
+  annotationProcessor libs.autoValue
+  annotationProcessor libs.autoValueGson
+
   testCompile libs.junit
 }
