@@ -4,6 +4,7 @@ import com.squareup.leakcanary.LeakCanary;
 import vn.tiki.appid.common.TheApp;
 import vn.tiki.appid.data.DataModule;
 import vn.tiki.appid.home.HomeModule;
+import vn.tiki.appid.product.ProductModule;
 
 /**
  * Created by Giang Nguyen on 10/8/16.
@@ -36,6 +37,8 @@ public class MyApplication extends TheApp {
   @Override public <T> T plus(Object module) {
     if (module instanceof HomeModule) {
       return (T) appComponent.plus((HomeModule) module);
+    } else if (module instanceof ProductModule) {
+      return (T) appComponent.plus((ProductModule) module);
     }
     return null;
   }

@@ -11,15 +11,15 @@
   <android.support.design.widget.AppBarLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="?attr/colorPrimary">
+      android:background="?attr/colorPrimary"
+      app:elevation="0dp">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
-        android:title="@string/name"
-        app:elevation="0dp"
+        android:title="@string/app_name"
         app:navigationIcon="@drawable/ic_burger_menu_24dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:titleTextColor="@android:color/white"

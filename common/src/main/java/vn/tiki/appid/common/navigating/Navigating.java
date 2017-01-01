@@ -12,4 +12,6 @@ public interface Navigating {
 
   @NonNull Intent homeActivityIntent(Context context);
 
+  @NonNull Intent productListActivityIntent(Context context);
+
 }

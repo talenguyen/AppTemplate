@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+>
+
+  <ImageView
+      android:id="@+id/ivThumb"
+      android:layout_width="100dp"
+      android:layout_height="0dp"
+      android:scaleType="fitCenter"
+      android:src="@drawable/ic_place_holder"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintTop_toTopOf="parent"/>
+
+  <TextView
+      android:id="@+id/tvName"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="16dp"
+      android:layout_marginStart="16dp"
+      android:lines="2"
+      android:maxLines="2"
+      android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+      app:layout_constraintLeft_toRightOf="@+id/ivThumb"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="eWools Self Design V-neck Casual Women's Black Sweater"/>
+
+  <TextView
+      android:id="@+id/tvRating"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:background="@drawable/rounded_rect_2dp_green"
+      android:drawableEnd="@drawable/ic_star_white_12dp"
+      android:drawablePadding="4dp"
+      android:drawableRight="@drawable/ic_star_white_12dp"
+      android:paddingEnd="4dp"
+      android:paddingLeft="4dp"
+      android:paddingRight="4dp"
+      android:paddingStart="4dp"
+      android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+      android:textColor="@color/white"
+      app:layout_constraintLeft_toLeftOf="@+id/tvName"
+      app:layout_constraintTop_toBottomOf="@+id/tvName"
+      tools:text="3.9"/>
+
+  <TextView
+      android:id="@+id/tvReviewCount"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="4dp"
+      android:layout_marginStart="4dp"
+      android:gravity="center_vertical"
+      android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+      app:layout_constraintBottom_toBottomOf="@+id/tvRating"
+      app:layout_constraintLeft_toRightOf="@id/tvRating"
+      app:layout_constraintTop_toTopOf="@+id/tvRating"
+      tools:text="(54)"/>
+
+
+  <vn.tiki.appid.common.widget.PriceTextView
+      android:id="@+id/tvPrice"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+      app:layout_constraintStart_toStartOf="@id/tvName"
+      app:layout_constraintTop_toBottomOf="@+id/tvRating"
+      tools:layout_editor_absoluteX="116dp"
+      tools:text="$20"/>
+
+  <vn.tiki.appid.common.widget.PriceTextView
+      android:id="@+id/tvOriginalPrice"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="4dp"
+      android:layout_marginStart="4dp"
+      android:gravity="center_vertical"
+      android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+      app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
+      app:layout_constraintLeft_toRightOf="@+id/tvPrice"
+      app:layout_constraintTop_toTopOf="@+id/tvPrice"
+      app:strike_through="true"
+      tools:text="$15"/>
+
+  <TextView
+      android:id="@+id/tvDiscountRate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="4dp"
+      android:layout_marginStart="4dp"
+      android:gravity="center_vertical"
+      android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+      app:layout_constraintBottom_toBottomOf="@+id/tvOriginalPrice"
+      app:layout_constraintLeft_toRightOf="@+id/tvOriginalPrice"
+      app:layout_constraintTop_toTopOf="@+id/tvOriginalPrice"
+      tools:text="25% off"/>
+
+</android.support.constraint.ConstraintLayout>

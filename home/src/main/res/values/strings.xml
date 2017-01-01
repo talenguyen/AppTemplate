@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="name">E-Commerce</string>
   <string name="notification">Notification</string>
   <string name="search_for_products_brands_and_more">Search for Products, Brands and More</string>
   <string name="cart">Cart</string>

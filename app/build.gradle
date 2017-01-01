@@ -40,6 +40,7 @@ dependencies {
   compile libs.data
   compile libs.common
   compile libs.home
+  compile libs.product
 
   // Support libraries
   compile libs.appCompatV7

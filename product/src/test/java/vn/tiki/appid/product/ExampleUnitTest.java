@@ -1,4 +1,4 @@
-package vn.tiki.appid.home;
+package vn.tiki.appid.product;
 
 import org.junit.Test;
 

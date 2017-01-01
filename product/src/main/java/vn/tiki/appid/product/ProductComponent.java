@@ -1,8 +1,7 @@
-package vn.tiki.appid.home;
+package vn.tiki.appid.product;
 
 import dagger.Subcomponent;
-import vn.tiki.appid.home.detail.ProductDetailActivity;
-import vn.tiki.appid.home.list.ProductListActivity;
+import vn.tiki.appid.product.list.ProductListFragment;
 
 /**
  * Created by Giang Nguyen on 11/14/16.
@@ -10,8 +9,6 @@ import vn.tiki.appid.home.list.ProductListActivity;
 @Subcomponent(modules = ProductModule.class)
 public interface ProductComponent {
 
-  void inject(ProductListActivity productListActivity);
-
-  void inject(ProductDetailActivity productDetailActivity);
+  void inject(ProductListFragment productListFragment);
 
 }

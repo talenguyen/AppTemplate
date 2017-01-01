@@ -43,6 +43,7 @@ dependencies {
 
   // Test
   testCompile libs.junit
+  testCompile libs.mockito
   androidTestCompile(libs.espressoCore, {
     exclude group: 'com.android.support', module: 'support-annotations'
   })

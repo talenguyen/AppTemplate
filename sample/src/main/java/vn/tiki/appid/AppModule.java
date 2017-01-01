@@ -32,6 +32,10 @@ import vn.tiki.appid.home.HomeActivity;
       @NonNull @Override public Intent homeActivityIntent(Context context) {
         return new Intent(context, HomeActivity.class);
       }
+
+      @NonNull @Override public Intent productListActivityIntent(Context context) {
+        return null;
+      }
     };
   }
 }
