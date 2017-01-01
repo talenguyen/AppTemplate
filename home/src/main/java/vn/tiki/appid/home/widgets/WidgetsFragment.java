@@ -16,7 +16,6 @@ import java.util.List;
 import javax.inject.Inject;
 import vn.tiki.appid.common.base.BaseFragment;
 import vn.tiki.appid.common.navigating.Navigating;
-import vn.tiki.appid.common.navigating.Navigating;
 import vn.tiki.appid.common.widget.SingleVisibleChildFrameLayout;
 import vn.tiki.appid.home.entity.Category;
 import vn.tiki.noadapter.AbsViewHolder;

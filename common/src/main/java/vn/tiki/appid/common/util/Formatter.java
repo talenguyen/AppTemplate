@@ -15,7 +15,7 @@ public class Formatter {
   }
 
   public static CharSequence formatPriceWithCurrency(double value, Locale locale) {
-    NumberFormat format = NumberFormat.getCurrencyInstance(locale);
+    final NumberFormat format = NumberFormat.getCurrencyInstance(locale);
     format.setMinimumFractionDigits(0);
     format.setCurrency(Currency.getInstance(locale));
     return format.format(value);

@@ -56,7 +56,9 @@ class ProductListItemViewHolder extends AbsViewHolder {
     tvReviewCount.setText(context.getString(R.string.review_count_format, product.reviewCount()));
     tvPrice.setPrice(product.listPrice());
     tvOriginalPrice.setPrice(product.price());
-    tvDiscountRate.setText(context.getString(R.string.discount_rate_format, product.discountRate()));
+    tvDiscountRate.setText(context.getString(
+        R.string.discount_rate_format,
+        product.discountRate()));
   }
 
   @NonNull private String toString(double value) {
