@@ -6,4 +6,10 @@
     <attr format="boolean"
           name="foregroundInsidePadding"/>
   </declare-styleable>
+  <declare-styleable name="PriceTextView">
+    <attr format="float"
+          name="price"/>
+    <attr format="boolean"
+          name="strike_through"/>
+  </declare-styleable>
 </resources>

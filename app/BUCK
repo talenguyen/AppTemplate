@@ -12,11 +12,12 @@ java_library(
 android_resource(
 	name = 'res_main',
 	res = 'src/main/res',
-	package = 'com.tiki.appid',
+	package = 'vn.tiki.appid',
 	resource_union = True,
 	deps = [
 		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.constraint.constraint-layout-1.0.0-beta4.aar',
 		'//.okbuck/cache:com.android.support.design-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
@@ -34,6 +35,7 @@ android_resource(
 		'//common:res_main',
 		'//data:res_main',
 		'//home:res_main',
+		'//product:res_main',
 		'//resources:res_main',
 	],
 	visibility = [
@@ -43,7 +45,7 @@ android_resource(
 
 android_build_config(
 	name = 'build_config_debug',
-	package = 'com.tiki.appid',
+	package = 'vn.tiki.appid',
 	values = [
 		'String APPLICATION_ID = "vn.tiki.appid"',
 		'String BUILD_TYPE = "debug"',
@@ -60,6 +62,7 @@ android_library(
 	name = 'src_debug',
 	srcs = glob([
 		'src/main/java/**/*.java',
+		'src/debug/java/**/*.java',
 	]),
 	manifest = 'build/okbuck/debug/AndroidManifest.xml',
 	annotation_processors = [
@@ -78,6 +81,8 @@ android_library(
 	deps = [
 		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.constraint.constraint-layout-1.0.0-beta4.aar',
+		'//.okbuck/cache:com.android.support.constraint.constraint-layout-solver-1.0.0-beta4.jar',
 		'//.okbuck/cache:com.android.support.design-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-annotations-25.0.1.jar',
@@ -89,6 +94,8 @@ android_library(
 		'//.okbuck/cache:com.android.support.support-v4-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.transition-25.0.0.aar',
+		'//.okbuck/cache:com.github.bumptech.glide.glide-3.7.0.jar',
+		'//.okbuck/cache:com.google.code.gson.gson-2.8.0.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-2.7.jar',
 		'//.okbuck/cache:com.jakewharton.butterknife-8.4.0.aar',
 		'//.okbuck/cache:com.jakewharton.butterknife-annotations-8.4.0.jar',
@@ -107,6 +114,8 @@ android_library(
 		'//data:src_release',
 		'//home:res_main',
 		'//home:src_release',
+		'//product:res_main',
+		'//product:src_release',
 		'//resources:res_main',
 		'//resources:src_release',
 		':build_config_debug',
@@ -123,6 +132,7 @@ android_manifest(
 	deps = [
 		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.constraint.constraint-layout-1.0.0-beta4.aar',
 		'//.okbuck/cache:com.android.support.design-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
@@ -140,6 +150,7 @@ android_manifest(
 		'//common:src_release',
 		'//data:src_release',
 		'//home:src_release',
+		'//product:src_release',
 		'//resources:src_release',
 	],
 	visibility = [
@@ -178,7 +189,7 @@ java_library(
 
 android_build_config(
 	name = 'build_config_release',
-	package = 'com.tiki.appid',
+	package = 'vn.tiki.appid',
 	values = [
 		'String APPLICATION_ID = "vn.tiki.appid"',
 		'String BUILD_TYPE = "release"',
@@ -195,6 +206,7 @@ android_library(
 	name = 'src_release',
 	srcs = glob([
 		'src/main/java/**/*.java',
+		'src/release/java/**/*.java',
 	]),
 	manifest = 'build/okbuck/release/AndroidManifest.xml',
 	annotation_processors = [
@@ -213,6 +225,8 @@ android_library(
 	deps = [
 		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.constraint.constraint-layout-1.0.0-beta4.aar',
+		'//.okbuck/cache:com.android.support.constraint.constraint-layout-solver-1.0.0-beta4.jar',
 		'//.okbuck/cache:com.android.support.design-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-annotations-25.0.1.jar',
@@ -224,10 +238,15 @@ android_library(
 		'//.okbuck/cache:com.android.support.support-v4-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.transition-25.0.0.aar',
+		'//.okbuck/cache:com.github.bumptech.glide.glide-3.7.0.jar',
+		'//.okbuck/cache:com.google.code.gson.gson-2.8.0.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-2.7.jar',
 		'//.okbuck/cache:com.jakewharton.butterknife-8.4.0.aar',
 		'//.okbuck/cache:com.jakewharton.butterknife-annotations-8.4.0.jar',
-		'//.okbuck/cache:com.squareup.leakcanary.leakcanary-android-no-op-1.5.aar',
+		'//.okbuck/cache:com.squareup.haha.haha-2.0.3.jar',
+		'//.okbuck/cache:com.squareup.leakcanary.leakcanary-analyzer-1.5.jar',
+		'//.okbuck/cache:com.squareup.leakcanary.leakcanary-android-1.5.aar',
+		'//.okbuck/cache:com.squareup.leakcanary.leakcanary-watcher-1.5.jar',
 		'//.okbuck/cache:io.reactivex.rxjava2.rxandroid-2.0.1.aar',
 		'//.okbuck/cache:io.reactivex.rxjava2.rxjava-2.0.2.jar',
 		'//.okbuck/cache:javax.inject.javax.inject-1.jar',
@@ -239,6 +258,8 @@ android_library(
 		'//data:src_release',
 		'//home:res_main',
 		'//home:src_release',
+		'//product:res_main',
+		'//product:src_release',
 		'//resources:res_main',
 		'//resources:src_release',
 		':build_config_release',
@@ -255,6 +276,7 @@ android_manifest(
 	deps = [
 		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.constraint.constraint-layout-1.0.0-beta4.aar',
 		'//.okbuck/cache:com.android.support.design-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
@@ -266,12 +288,13 @@ android_manifest(
 		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.0.aar',
 		'//.okbuck/cache:com.android.support.transition-25.0.0.aar',
 		'//.okbuck/cache:com.jakewharton.butterknife-8.4.0.aar',
-		'//.okbuck/cache:com.squareup.leakcanary.leakcanary-android-no-op-1.5.aar',
+		'//.okbuck/cache:com.squareup.leakcanary.leakcanary-android-1.5.aar',
 		'//.okbuck/cache:io.reactivex.rxjava2.rxandroid-2.0.1.aar',
 		'//.okbuck/cache:vn.tiki.noadapter.noadapter-2.0.0.aar',
 		'//common:src_release',
 		'//data:src_release',
 		'//home:src_release',
+		'//product:src_release',
 		'//resources:src_release',
 	],
 	visibility = [

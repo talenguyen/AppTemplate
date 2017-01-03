@@ -27,7 +27,7 @@ public abstract class MvpPresenter<MvpView> {
     disposables.add(disposable);
   }
 
-  void detachView() {
+  public void detachView() {
     if (viewRef != null) {
       viewRef.clear();
     }

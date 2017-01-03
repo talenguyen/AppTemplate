@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'com.github.dcendents.android-maven'
 
 version = VERSION_NAME
@@ -29,13 +30,20 @@ dependencies {
 
   compile libs.resources
   compile libs.common
+
   compile libs.dagger
   annotationProcessor libs.daggerCompiler
+
   compile libs.butterKnife
   annotationProcessor libs.butterKnifeCompiler
 
+  compile libs.noAdapter
+  compile constraintLayout
+  compile libs.glide
+
   // Test
   testCompile libs.junit
+  testCompile libs.mockito
   androidTestCompile(libs.espressoCore, {
     exclude group: 'com.android.support', module: 'support-annotations'
   })

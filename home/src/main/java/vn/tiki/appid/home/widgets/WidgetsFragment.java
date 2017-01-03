@@ -15,6 +15,7 @@ import com.tiki.appid.home.R2;
 import java.util.List;
 import javax.inject.Inject;
 import vn.tiki.appid.common.base.BaseFragment;
+import vn.tiki.appid.common.navigating.Navigating;
 import vn.tiki.appid.common.widget.SingleVisibleChildFrameLayout;
 import vn.tiki.appid.home.entity.Category;
 import vn.tiki.noadapter.AbsViewHolder;
@@ -27,9 +28,10 @@ import vn.tiki.noadapter.ViewHolderSelector;
  */
 
 public class WidgetsFragment extends BaseFragment implements WidgetsView {
-  private static final String TAG = "WidgetsFragment";
 
   @Inject WidgetsPresenter presenter;
+  @Inject Navigating navigating;
+
   @BindView(R2.id.rvList) RecyclerView rvList;
   @BindView(R2.id.vRootView) SingleVisibleChildFrameLayout vRootView;
 
@@ -71,6 +73,7 @@ public class WidgetsFragment extends BaseFragment implements WidgetsView {
           @Override public void onItemClick(View view, Object item, int position) {
             if (item instanceof Category) {
               // TODO: 12/27/16 show product list for category
+              startActivity(navigating.productListActivityIntent(getContext()));
             }
           }
         })
