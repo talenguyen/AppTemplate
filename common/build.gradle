@@ -32,6 +32,7 @@ dependencies {
 
   compile libs.appCompatV7
   compile libs.dagger
+  compile libs.noAdapter
 
   testCompile libs.junit
   testCompile libs.robolectric

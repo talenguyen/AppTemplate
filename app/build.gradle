@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
   buildToolsVersion rootProject.ext.buildToolsVersion
+
   defaultConfig {
     applicationId "vn.tiki.appid"
     minSdkVersion rootProject.ext.minSdkVersion
@@ -50,8 +51,7 @@ dependencies {
   compile libs.dagger
   annotationProcessor libs.daggerCompiler
 
-  debugCompile libs.leakCanary
-  releaseCompile libs.leakCanaryNoOp
+  compile libs.leakCanary
   testCompile libs.leakCanaryNoOp
 
   // Test
