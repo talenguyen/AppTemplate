@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+# You can run it from any directory.
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+ACTIVITY="vn.tiki.appid/vn.tiki.appid.SplashActivity"
+build="./gradlew :app:installDebug --daemon --parallel --configure-on-demand --offline -Pdev=true"
+run="adb shell am start -n $ACTIVITY -a android.intent.action.MAIN -c android.intent.category.LAUNCHER"
+
+$build && $run
