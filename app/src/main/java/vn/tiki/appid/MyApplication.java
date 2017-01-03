@@ -1,8 +1,9 @@
 package vn.tiki.appid;
 
-import com.squareup.leakcanary.LeakCanary;
+import javax.inject.Inject;
 import vn.tiki.appid.common.TheApp;
 import vn.tiki.appid.data.DataModule;
+import vn.tiki.appid.developer_settings.LeakCanaryProxy;
 import vn.tiki.appid.home.HomeModule;
 import vn.tiki.appid.product.ProductModule;
 
@@ -11,6 +12,8 @@ import vn.tiki.appid.product.ProductModule;
  */
 
 public class MyApplication extends TheApp {
+
+  @Inject LeakCanaryProxy leakCanaryProxy;
 
   private AppComponent appComponent;
 
@@ -22,9 +25,10 @@ public class MyApplication extends TheApp {
         .dataModule(new DataModule())
         .build();
 
-    if (!LeakCanary.isInAnalyzerProcess(this)) {
-      LeakCanary.install(this);
-    }
+    appComponent.inject(this);
+
+    // TODO: 1/3/17 Workaround to support run with BUCK
+    //leakCanaryProxy.init();
   }
 
   @Override public void inject(Object object) {

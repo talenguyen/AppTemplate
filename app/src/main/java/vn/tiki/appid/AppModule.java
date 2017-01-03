@@ -21,6 +21,12 @@ import vn.tiki.appid.common.util.ImageLoader;
 
   @Singleton
   @Provides
+  Application provideApplication() {
+    return application;
+  }
+
+  @Singleton
+  @Provides
   @Named("application") Context provideApplicationContext() {
     return application;
   }
