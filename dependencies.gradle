@@ -13,9 +13,9 @@ ext {
   product = project(':product')
 
   // Dependencies
-  appCompatV7 = 'com.android.support:appcompat-v7:25.0.0'
-  recyclerViewV7 = 'com.android.support:recyclerview-v7:25.0.0'
-  supportDesign = 'com.android.support:design:25.0.0'
+  appCompatV7 = 'com.android.support:appcompat-v7:25.0.1'
+  recyclerViewV7 = 'com.android.support:recyclerview-v7:25.0.1'
+  supportDesign = 'com.android.support:design:25.0.1'
   dagger = 'com.google.dagger:dagger:2.7'
   daggerCompiler = 'com.google.dagger:dagger-compiler:2.7'
   butterKnife = 'com.jakewharton:butterknife:8.4.0'

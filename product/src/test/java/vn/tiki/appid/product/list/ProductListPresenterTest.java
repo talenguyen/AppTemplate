@@ -2,24 +2,43 @@ package vn.tiki.appid.product.list;
 
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
-import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import vn.tiki.appid.data.entity.Page;
 import vn.tiki.appid.data.entity.Product;
 import vn.tiki.appid.data.exception.NetworkException;
 import vn.tiki.appid.data.model.ProductModel;
 
 import static java.util.Arrays.asList;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
+import static vn.tiki.appid.common.util.Lists.listOf;
+import static vn.tiki.appid.common.util.Lists.merged;
+import static vn.tiki.appid.common.util.Lists.spread;
+import static vn.tiki.appid.data.entity.LoadingItem.loadingItem;
+import static vn.tiki.appid.data.entity.RetryItem.retryItem;
 
 /**
  * Created by Giang Nguyen on 1/1/17.
  */
 public class ProductListPresenterTest {
+
+  private static final Page FIRST_PAGE = Page.firstPage();
+  private static final Page SECOND_PAGE = FIRST_PAGE.next();
+
+  private static final List<Product> FIRST_PAGE_PRODUCTS_MOCKED = asList(
+      mock(Product.class),
+      mock(Product.class)
+  );
+  private static final List<Product> SECOND_PAGE_PRODUCTS_MOCKED = asList(
+      mock(Product.class),
+      mock(Product.class)
+  );
 
   private ProductListView productListViewMocked;
   private ProductModel productModelMocked;
@@ -34,77 +53,112 @@ public class ProductListPresenterTest {
         productModelMocked,
         Schedulers.trampoline(),
         Schedulers.trampoline());
+
+    givenProductWhenLoad(FIRST_PAGE, FIRST_PAGE_PRODUCTS_MOCKED);
+    givenProductWhenLoad(SECOND_PAGE, SECOND_PAGE_PRODUCTS_MOCKED);
+
+    presenter.attachView(productListViewMocked);
   }
 
   @Test
-  public void shouldShowLoadingWhenLoadProduct() throws Exception {
-    when(productModelMocked.products()).thenReturn(Single.just(Collections.<Product>emptyList()));
+  public void should_not_interact_after_view_detached() throws Exception {
+    presenter.detachView();
+    presenter.loadProducts();
 
-    presenter.attachView(productListViewMocked);
+    verifyZeroInteractions(productListViewMocked);
+  }
+
+  @Test
+  public void should_show_loading_when_load() throws Exception {
     presenter.loadProducts();
 
     verify(productListViewMocked).showLoading();
   }
 
   @Test
-  public void shouldNotShowLoadingAfterViewDetached() throws Exception {
-    when(productModelMocked.products()).thenReturn(Single.just(Collections.<Product>emptyList()));
+  public void should_show_error_when_error_occurred_during_load() throws Exception {
+    givenErrorWhenLoad(FIRST_PAGE);
 
-    presenter.attachView(productListViewMocked);
-    presenter.detachView();
-    presenter.loadProducts();
-
-    verifyZeroInteractions(productListViewMocked);
-  }
-
-  @Test
-  public void shouldShowErrorWhenErrorOccurred() throws Exception {
-    when(productModelMocked.products())
-        .thenReturn(Single.<List<Product>>error(new RuntimeException()));
-
-    presenter.attachView(productListViewMocked);
     presenter.loadProducts();
 
     verify(productListViewMocked).showError();
   }
 
   @Test
-  public void shouldShowNetworkErrorForNetworkException() throws Exception {
-    when(productModelMocked.products())
-        .thenReturn(Single.<List<Product>>error(new NetworkException()));
+  public void should_show_network_error_when_network_error_occurred_during_load() throws Exception {
+    givenErrorNetworkWhenLoad(FIRST_PAGE);
 
-    presenter.attachView(productListViewMocked);
     presenter.loadProducts();
 
     verify(productListViewMocked).showNetworkError();
   }
 
   @Test
-  public void shouldNotShowErrorAfterViewDetached() throws Exception {
-    when(productModelMocked.products())
-        .thenReturn(Single.<List<Product>>error(new RuntimeException()));
-
-    presenter.attachView(productListViewMocked);
-    presenter.detachView();
+  public void should_show_products_when_load_success() throws Exception {
     presenter.loadProducts();
 
-    verifyZeroInteractions(productListViewMocked);
+    verify(productListViewMocked).showProducts(
+        listOf(
+            spread(FIRST_PAGE_PRODUCTS_MOCKED),
+            new Object[] {loadingItem()}
+        ));
   }
 
   @Test
-  public void shouldShowProducts() throws Exception {
-    final List<Product> products = asList(
-        mock(Product.class),
-        mock(Product.class)
-    );
-
-    when(productModelMocked.products())
-        .thenReturn(Single.just(products));
-
-    presenter.attachView(productListViewMocked);
+  public void should_not_show_loading_when_load_more() throws Exception {
     presenter.loadProducts();
+    verify(productListViewMocked).showLoading();
 
-    verify(productListViewMocked).showProducts(products);
+    presenter.loadMoreProducts();
+    verify(productListViewMocked, times(1)).showLoading();
+  }
 
+  @Test
+  public void should_show_retry_when_error_occur_during_load_more() throws Exception {
+    givenProductWhenLoad(FIRST_PAGE, FIRST_PAGE_PRODUCTS_MOCKED);
+    givenErrorWhenLoad(SECOND_PAGE);
+
+    presenter.loadProducts();
+    presenter.loadMoreProducts();
+
+    verify(productListViewMocked).showProducts(
+        listOf(
+            spread(FIRST_PAGE_PRODUCTS_MOCKED),
+            new Object[] { retryItem() }
+        )
+    );
+  }
+
+  @Test
+  public void should_show_appended_product_when_success_during_load_more() throws Exception {
+    presenter.loadProducts();
+    presenter.loadMoreProducts();
+
+    verify(productListViewMocked).showProducts(
+        listOf(
+            spread(
+                merged(
+                    FIRST_PAGE_PRODUCTS_MOCKED,
+                    SECOND_PAGE_PRODUCTS_MOCKED
+                )
+            ),
+            new Object[] { loadingItem() }
+        )
+    );
+  }
+
+  private void givenProductWhenLoad(Page page, List<Product> products) {
+    when(productModelMocked.products(eq(page)))
+        .thenReturn(Single.just(products));
+  }
+
+  private void givenErrorWhenLoad(Page page) {
+    when(productModelMocked.products(eq(page)))
+        .thenReturn(Single.<List<Product>>error(new RuntimeException()));
+  }
+
+  private void givenErrorNetworkWhenLoad(Page page) {
+    when(productModelMocked.products(eq(page)))
+        .thenReturn(Single.<List<Product>>error(new NetworkException()));
   }
 }

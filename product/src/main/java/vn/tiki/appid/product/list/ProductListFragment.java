@@ -18,7 +18,6 @@ import javax.inject.Inject;
 import vn.tiki.appid.common.base.BaseFragment;
 import vn.tiki.appid.common.util.ImageLoader;
 import vn.tiki.appid.common.widget.SingleVisibleChildFrameLayout;
-import vn.tiki.appid.data.entity.Product;
 import vn.tiki.noadapter.AbsViewHolder;
 import vn.tiki.noadapter.OnlyAdapter;
 import vn.tiki.noadapter.ViewHolderSelector;
@@ -63,7 +62,7 @@ public class ProductListFragment extends BaseFragment implements ProductListView
     vRootView.show(R.id.vErrorNetwork);
   }
 
-  @Override public void showProducts(List<Product> products) {
+  @Override public void showProducts(List<Object> products) {
     vRootView.show(R.id.rvList);
     adapter.setItems(products);
   }

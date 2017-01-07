@@ -3,8 +3,8 @@ package vn.tiki.appid.common.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.widget.TextView;
 import com.tiki.appid.common.R;
 import java.util.Locale;
 import vn.tiki.appid.common.util.Formatter;
@@ -12,7 +12,7 @@ import vn.tiki.appid.common.util.Formatter;
 /**
  * Created by Giang Nguyen on 12/31/16.
  */
-public class PriceTextView extends TextView {
+public class PriceTextView extends AppCompatTextView {
 
   public PriceTextView(Context context, AttributeSet attrs) {
     super(context, attrs);
