@@ -4,16 +4,16 @@ android_resource(
 	package = 'com.tiki.appid.common',
 	resource_union = True,
 	deps = [
-		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-core-ui-25.0.1.aar',
-		'//.okbuck/cache:com.android.support.support-core-utils-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-fragment-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-media-compat-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-v4-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.support-core-utils-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-fragment-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-media-compat-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-v4-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.1.aar',
 		'//.okbuck/cache:io.reactivex.rxjava2.rxandroid-2.0.1.aar',
 		'//.okbuck/cache:vn.tiki.noadapter.noadapter-2.0.0.aar',
 		'//data:res_main',
@@ -43,20 +43,26 @@ android_library(
 		'src/main/java/**/*.java',
 	]),
 	manifest = 'build/okbuck/debug/AndroidManifest.xml',
-	source = '7',
-	target = '7',
+	provided_deps = [
+		'//.okbuck/cache/retrolambda:rt-stub.jar',
+	],
+	source = '8',
+	target = '8',
+	postprocess_classes_commands = [
+		'(read CLASSES_DIR && java -Dretrolambda.inputDir=$CLASSES_DIR -Dretrolambda.classpath="${COMPILATION_BOOTCLASSPATH}":"${COMPILATION_CLASSPATH}":"${CLASSES_DIR}" -jar .okbuck/cache/retrolambda/retrolambda-2.3.0.jar) <<<',
+	],
 	deps = [
-		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-annotations-25.0.1.jar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-core-ui-25.0.1.aar',
-		'//.okbuck/cache:com.android.support.support-core-utils-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-fragment-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-media-compat-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-v4-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.support-core-utils-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-fragment-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-media-compat-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-v4-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.1.aar',
 		'//.okbuck/cache:com.google.code.gson.gson-2.8.0.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-2.7.jar',
 		'//.okbuck/cache:io.reactivex.rxjava2.rxandroid-2.0.1.aar',
@@ -74,6 +80,32 @@ android_library(
 	visibility = [
 		'PUBLIC',
 	],
+)
+
+genrule(
+	name = 'lint_debug',
+	srcs = [
+		'src/main/java',
+		'src/main/res',
+		'build/okbuck/debug',
+	],
+	out = 'lint_debug_out',
+	bash = '' \
+	'mkdir -p $OUT; ' \
+	'exec java ' \
+	'-Djava.awt.headless=true ' \
+	'-Xmx1024m ' \
+	'-classpath $(location //.okbuck/cache/lint:okbuck_lint) ' \
+	'com.android.tools.lint.Main ' \
+	'--classpath $(location :src_debug) ' \
+	'--exitcode ' \
+	'--fullpath ' \
+	'--xml "$OUT/lint-results.xml" ' \
+	'--html "$OUT/lint-results.html" ' \
+	'--sources src/main/java ' \
+	'--resources src/main/res ' \
+	'build/okbuck/debug ' \
+	'',
 )
 
 android_build_config(
@@ -95,20 +127,26 @@ android_library(
 		'src/main/java/**/*.java',
 	]),
 	manifest = 'build/okbuck/release/AndroidManifest.xml',
-	source = '7',
-	target = '7',
+	provided_deps = [
+		'//.okbuck/cache/retrolambda:rt-stub.jar',
+	],
+	source = '8',
+	target = '8',
+	postprocess_classes_commands = [
+		'(read CLASSES_DIR && java -Dretrolambda.inputDir=$CLASSES_DIR -Dretrolambda.classpath="${COMPILATION_BOOTCLASSPATH}":"${COMPILATION_CLASSPATH}":"${CLASSES_DIR}" -jar .okbuck/cache/retrolambda/retrolambda-2.3.0.jar) <<<',
+	],
 	deps = [
-		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-annotations-25.0.1.jar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-core-ui-25.0.1.aar',
-		'//.okbuck/cache:com.android.support.support-core-utils-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-fragment-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-media-compat-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-v4-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.support-core-utils-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-fragment-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-media-compat-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-v4-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.1.aar',
 		'//.okbuck/cache:com.google.code.gson.gson-2.8.0.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-2.7.jar',
 		'//.okbuck/cache:io.reactivex.rxjava2.rxandroid-2.0.1.aar',
@@ -126,5 +164,31 @@ android_library(
 	visibility = [
 		'PUBLIC',
 	],
+)
+
+genrule(
+	name = 'lint_release',
+	srcs = [
+		'src/main/java',
+		'src/main/res',
+		'build/okbuck/release',
+	],
+	out = 'lint_release_out',
+	bash = '' \
+	'mkdir -p $OUT; ' \
+	'exec java ' \
+	'-Djava.awt.headless=true ' \
+	'-Xmx1024m ' \
+	'-classpath $(location //.okbuck/cache/lint:okbuck_lint) ' \
+	'com.android.tools.lint.Main ' \
+	'--classpath $(location :src_release) ' \
+	'--exitcode ' \
+	'--fullpath ' \
+	'--xml "$OUT/lint-results.xml" ' \
+	'--html "$OUT/lint-results.html" ' \
+	'--sources src/main/java ' \
+	'--resources src/main/res ' \
+	'build/okbuck/release ' \
+	'',
 )
 

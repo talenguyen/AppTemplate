@@ -18,9 +18,7 @@ import javax.inject.Inject;
 import vn.tiki.appid.common.base.BaseFragment;
 import vn.tiki.appid.common.util.ImageLoader;
 import vn.tiki.appid.common.widget.SingleVisibleChildFrameLayout;
-import vn.tiki.noadapter.AbsViewHolder;
 import vn.tiki.noadapter.OnlyAdapter;
-import vn.tiki.noadapter.ViewHolderSelector;
 
 /**
  * Created by Giang Nguyen on 12/31/16.
@@ -90,11 +88,7 @@ public class ProductListFragment extends BaseFragment implements ProductListView
 
   private OnlyAdapter productListAdapter() {
     return new OnlyAdapter.Builder()
-        .viewHolderSelector(new ViewHolderSelector() {
-          @Override public AbsViewHolder viewHolderForType(ViewGroup parent, int type) {
-            return ProductListItemViewHolder.create(parent, imageLoader);
-          }
-        })
+        .viewHolderSelector((parent, type) -> ProductListItemViewHolder.create(parent, imageLoader))
         .build();
   }
 

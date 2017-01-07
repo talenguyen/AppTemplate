@@ -154,11 +154,11 @@ public class ProductListPresenterTest {
 
   private void givenErrorWhenLoad(Page page) {
     when(productModelMocked.products(eq(page)))
-        .thenReturn(Single.<List<Product>>error(new RuntimeException()));
+        .thenReturn(Single.error(new RuntimeException()));
   }
 
   private void givenErrorNetworkWhenLoad(Page page) {
     when(productModelMocked.products(eq(page)))
-        .thenReturn(Single.<List<Product>>error(new NetworkException()));
+        .thenReturn(Single.error(new NetworkException()));
   }
 }

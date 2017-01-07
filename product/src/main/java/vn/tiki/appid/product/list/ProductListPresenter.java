@@ -2,10 +2,6 @@ package vn.tiki.appid.product.list;
 
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
-import io.reactivex.functions.BiConsumer;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import java.util.List;
 import vn.tiki.appid.common.base.MvpPresenter;
 import vn.tiki.appid.common.util.Lists;
@@ -45,39 +41,33 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
     view.showLoading();
 
     autoDispose(model.products(nextPage)
-        .map(new Function<List<Product>, List<Object>>() {
-          @Override public List<Object> apply(List<Product> products) throws Exception {
-            cache(products);
-            return listOf(
-                spread(products),
-                new Object[] {
-                    loadingItem()
-                }
-            );
-          }
+        .map(products -> {
+          cache(products);
+          return listOf(
+              spread(products),
+              new Object[] {
+                  loadingItem()
+              }
+          );
         })
         .subscribeOn(workerScheduler)
         .observeOn(uiScheduler)
-        .subscribe(new Consumer<List<Object>>() {
-          @Override public void accept(List<Object> products) throws Exception {
-            increasePage();
-            final ProductListView productListView = getView();
-            if (productListView == null) {
-              return;
-            }
-            productListView.showProducts(products);
+        .subscribe(products -> {
+          increasePage();
+          final ProductListView productListView = getView();
+          if (productListView == null) {
+            return;
           }
-        }, new Consumer<Throwable>() {
-          @Override public void accept(Throwable throwable) throws Exception {
-            final ProductListView productListView = getView();
-            if (productListView == null) {
-              return;
-            }
-            if (throwable instanceof NetworkException) {
-              productListView.showNetworkError();
-            } else {
-              productListView.showError();
-            }
+          productListView.showProducts(products);
+        }, throwable -> {
+          final ProductListView productListView = getView();
+          if (productListView == null) {
+            return;
+          }
+          if (throwable instanceof NetworkException) {
+            productListView.showNetworkError();
+          } else {
+            productListView.showError();
           }
         }));
   }
@@ -86,60 +76,47 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
     final Single<List<Product>> loadProducts = Single.zip(
         Single.just(products),
         model.products(nextPage),
-        new BiFunction<List<Product>, List<Product>, List<Product>>() {
-          @Override public List<Product> apply(List<Product> products, List<Product> products2)
-              throws Exception {
-            return Lists.merged(
-                products,
-                products2
-            );
-          }
-        }).doOnEvent(new BiConsumer<List<Product>, Throwable>() {
-      @Override public void accept(List<Product> products, Throwable throwable) throws Exception {
-        if (products != null && !products.isEmpty()) {
+        (products1, products2) -> Lists.merged(
+            products1,
+            products2
+        )).doOnEvent((products12, throwable) -> {
+          if (products12 != null && !products12.isEmpty()) {
 
-        }
-      }
-    });
+          }
+        });
 
     autoDispose(loadProducts
         .subscribeOn(workerScheduler)
         .observeOn(uiScheduler)
-        .map(new Function<List<Product>, List<Object>>() {
-          @Override public List<Object> apply(List<Product> products) throws Exception {
-            cache(products);
-            return listOf(
-                spread(products),
-                new Object[] {
-                    loadingItem()
-                }
-            );
-          }
+        .map(products -> {
+          cache(products);
+          return listOf(
+              spread(products),
+              new Object[] {
+                  loadingItem()
+              }
+          );
         })
-        .subscribe(new Consumer<List<Object>>() {
-          @Override public void accept(List<Object> products) throws Exception {
-            increasePage();
-            final ProductListView productListView = getView();
-            if (productListView == null) {
-              return;
-            }
-            productListView.showProducts(products);
+        .subscribe(products -> {
+          increasePage();
+          final ProductListView productListView = getView();
+          if (productListView == null) {
+            return;
           }
-        }, new Consumer<Throwable>() {
-          @Override public void accept(Throwable throwable) throws Exception {
-            final ProductListView productListView = getView();
-            if (productListView == null) {
-              return;
-            }
-            productListView.showProducts(
-                listOf(
-                    spread(products),
-                    new Object[] {
-                        retryItem()
-                    }
-                )
-            );
+          productListView.showProducts(products);
+        }, throwable -> {
+          final ProductListView productListView = getView();
+          if (productListView == null) {
+            return;
           }
+          productListView.showProducts(
+              listOf(
+                  spread(products),
+                  new Object[] {
+                      retryItem()
+                  }
+              )
+          );
         }));
   }
 

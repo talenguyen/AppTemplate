@@ -15,19 +15,19 @@ android_resource(
 	package = 'vn.tiki.appid',
 	resource_union = True,
 	deps = [
-		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.constraint.constraint-layout-1.0.0-beta4.aar',
-		'//.okbuck/cache:com.android.support.design-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.design-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-core-ui-25.0.1.aar',
-		'//.okbuck/cache:com.android.support.support-core-utils-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-fragment-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-media-compat-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-v4-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.transition-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.support-core-utils-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-fragment-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-media-compat-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-v4-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.transition-25.0.1.aar',
 		'//.okbuck/cache:com.jakewharton.butterknife-8.4.0.aar',
 		'//.okbuck/cache:com.squareup.leakcanary.leakcanary-android-1.5.aar',
 		'//.okbuck/cache:io.reactivex.rxjava2.rxandroid-2.0.1.aar',
@@ -72,28 +72,29 @@ android_library(
 		':apt_jar_debug',
 	],
 	provided_deps = [
-		'//.okbuck/cache:com.google.dagger.dagger-compiler-2.7.jar',
-		'//.okbuck/cache:com.google.dagger.dagger-producers-2.7.jar',
-		'//.okbuck/cache:com.google.guava.guava-19.0.jar',
+		'//.okbuck/cache/retrolambda:rt-stub.jar',
 	],
-	source = '7',
-	target = '7',
+	source = '8',
+	target = '8',
+	postprocess_classes_commands = [
+		'(read CLASSES_DIR && java -Dretrolambda.inputDir=$CLASSES_DIR -Dretrolambda.classpath="${COMPILATION_BOOTCLASSPATH}":"${COMPILATION_CLASSPATH}":"${CLASSES_DIR}" -jar .okbuck/cache/retrolambda/retrolambda-2.3.0.jar) <<<',
+	],
 	deps = [
-		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.constraint.constraint-layout-1.0.0-beta4.aar',
 		'//.okbuck/cache:com.android.support.constraint.constraint-layout-solver-1.0.0-beta4.jar',
-		'//.okbuck/cache:com.android.support.design-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.design-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-annotations-25.0.1.jar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-core-ui-25.0.1.aar',
-		'//.okbuck/cache:com.android.support.support-core-utils-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-fragment-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-media-compat-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-v4-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.transition-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.support-core-utils-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-fragment-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-media-compat-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-v4-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.transition-25.0.1.aar',
 		'//.okbuck/cache:com.github.bumptech.glide.glide-3.7.0.jar',
 		'//.okbuck/cache:com.google.code.gson.gson-2.8.0.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-2.7.jar',
@@ -126,23 +127,51 @@ android_library(
 	],
 )
 
+genrule(
+	name = 'lint_debug',
+	srcs = [
+		'src/main/java',
+		'src/debug/java',
+		'src/main/res',
+		'build/okbuck/debug',
+	],
+	out = 'lint_debug_out',
+	bash = '' \
+	'export ANDROID_LINT_JARS="$(location //.okbuck/cache:com.jakewharton.butterknife-8.4.0-lint.jar)"; ' \
+	'mkdir -p $OUT; ' \
+	'exec java ' \
+	'-Djava.awt.headless=true ' \
+	'-Xmx1024m ' \
+	'-classpath $(location //.okbuck/cache/lint:okbuck_lint) ' \
+	'com.android.tools.lint.Main ' \
+	'--classpath $(location :src_debug) ' \
+	'--fullpath ' \
+	'--xml "$OUT/lint-results.xml" ' \
+	'--html "$OUT/lint-results.html" ' \
+	'--sources src/main/java ' \
+	'--sources src/debug/java ' \
+	'--resources src/main/res ' \
+	'build/okbuck/debug ' \
+	'',
+)
+
 android_manifest(
 	name = 'manifest_debug',
 	skeleton = 'build/okbuck/debug/AndroidManifest.xml',
 	deps = [
-		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.constraint.constraint-layout-1.0.0-beta4.aar',
-		'//.okbuck/cache:com.android.support.design-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.design-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-core-ui-25.0.1.aar',
-		'//.okbuck/cache:com.android.support.support-core-utils-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-fragment-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-media-compat-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-v4-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.transition-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.support-core-utils-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-fragment-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-media-compat-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-v4-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.transition-25.0.1.aar',
 		'//.okbuck/cache:com.jakewharton.butterknife-8.4.0.aar',
 		'//.okbuck/cache:com.squareup.leakcanary.leakcanary-android-1.5.aar',
 		'//.okbuck/cache:io.reactivex.rxjava2.rxandroid-2.0.1.aar',
@@ -216,28 +245,29 @@ android_library(
 		':apt_jar_release',
 	],
 	provided_deps = [
-		'//.okbuck/cache:com.google.dagger.dagger-compiler-2.7.jar',
-		'//.okbuck/cache:com.google.dagger.dagger-producers-2.7.jar',
-		'//.okbuck/cache:com.google.guava.guava-19.0.jar',
+		'//.okbuck/cache/retrolambda:rt-stub.jar',
 	],
-	source = '7',
-	target = '7',
+	source = '8',
+	target = '8',
+	postprocess_classes_commands = [
+		'(read CLASSES_DIR && java -Dretrolambda.inputDir=$CLASSES_DIR -Dretrolambda.classpath="${COMPILATION_BOOTCLASSPATH}":"${COMPILATION_CLASSPATH}":"${CLASSES_DIR}" -jar .okbuck/cache/retrolambda/retrolambda-2.3.0.jar) <<<',
+	],
 	deps = [
-		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.constraint.constraint-layout-1.0.0-beta4.aar',
 		'//.okbuck/cache:com.android.support.constraint.constraint-layout-solver-1.0.0-beta4.jar',
-		'//.okbuck/cache:com.android.support.design-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.design-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-annotations-25.0.1.jar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-core-ui-25.0.1.aar',
-		'//.okbuck/cache:com.android.support.support-core-utils-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-fragment-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-media-compat-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-v4-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.transition-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.support-core-utils-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-fragment-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-media-compat-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-v4-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.transition-25.0.1.aar',
 		'//.okbuck/cache:com.github.bumptech.glide.glide-3.7.0.jar',
 		'//.okbuck/cache:com.google.code.gson.gson-2.8.0.jar',
 		'//.okbuck/cache:com.google.dagger.dagger-2.7.jar',
@@ -270,23 +300,51 @@ android_library(
 	],
 )
 
+genrule(
+	name = 'lint_release',
+	srcs = [
+		'src/main/java',
+		'src/release/java',
+		'src/main/res',
+		'build/okbuck/release',
+	],
+	out = 'lint_release_out',
+	bash = '' \
+	'export ANDROID_LINT_JARS="$(location //.okbuck/cache:com.jakewharton.butterknife-8.4.0-lint.jar)"; ' \
+	'mkdir -p $OUT; ' \
+	'exec java ' \
+	'-Djava.awt.headless=true ' \
+	'-Xmx1024m ' \
+	'-classpath $(location //.okbuck/cache/lint:okbuck_lint) ' \
+	'com.android.tools.lint.Main ' \
+	'--classpath $(location :src_release) ' \
+	'--fullpath ' \
+	'--xml "$OUT/lint-results.xml" ' \
+	'--html "$OUT/lint-results.html" ' \
+	'--sources src/main/java ' \
+	'--sources src/release/java ' \
+	'--resources src/main/res ' \
+	'build/okbuck/release ' \
+	'',
+)
+
 android_manifest(
 	name = 'manifest_release',
 	skeleton = 'build/okbuck/release/AndroidManifest.xml',
 	deps = [
-		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.animated-vector-drawable-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.appcompat-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.constraint.constraint-layout-1.0.0-beta4.aar',
-		'//.okbuck/cache:com.android.support.design-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.design-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.recyclerview-v7-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-compat-25.0.1.aar',
 		'//.okbuck/cache:com.android.support.support-core-ui-25.0.1.aar',
-		'//.okbuck/cache:com.android.support.support-core-utils-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-fragment-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-media-compat-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-v4-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.0.aar',
-		'//.okbuck/cache:com.android.support.transition-25.0.0.aar',
+		'//.okbuck/cache:com.android.support.support-core-utils-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-fragment-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-media-compat-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-v4-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.support-vector-drawable-25.0.1.aar',
+		'//.okbuck/cache:com.android.support.transition-25.0.1.aar',
 		'//.okbuck/cache:com.jakewharton.butterknife-8.4.0.aar',
 		'//.okbuck/cache:com.squareup.leakcanary.leakcanary-android-1.5.aar',
 		'//.okbuck/cache:io.reactivex.rxjava2.rxandroid-2.0.1.aar',
@@ -306,6 +364,9 @@ android_binary(
 	name = 'bin_release',
 	manifest = ':manifest_release',
 	keystore = '//.okbuck/keystore/app:key_store_release.keystore',
+	package_type = 'release',
+	android_sdk_proguard_config = 'none',
+	proguard_config = 'build/okbuck/release/proguard.pro',
 	manifest_entries = {
 		'placeholders': {
 			'applicationId': 'vn.tiki.appid',
