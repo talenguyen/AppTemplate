@@ -40,6 +40,7 @@ dependencies {
   compile libs.noAdapter
   compile constraintLayout
   compile libs.glide
+  compile libs.ixJava
 
   // Test
   testCompile libs.junit
