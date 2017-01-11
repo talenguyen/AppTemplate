@@ -9,6 +9,7 @@ import io.reactivex.functions.Function;
 import ix.Ix;
 import ix.IxPredicate;
 import java.util.List;
+import java.util.NoSuchElementException;
 import vn.tiki.appid.common.base.MvpPresenter;
 import vn.tiki.appid.data.entity.Page;
 import vn.tiki.appid.data.entity.Product;
@@ -101,12 +102,20 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
           }
         }, new Consumer<Throwable>() {
           @Override public void accept(Throwable throwable) throws Exception {
-            showItemsInView(
-                concat(
-                    productIx,
-                    just(retryItem())
-                ).toList()
-            );
+            if (throwable instanceof NoSuchElementException) {
+              showItemsInView(
+                  productIx
+                      .cast(Object.class)
+                      .toList()
+              );
+            } else {
+              showItemsInView(
+                  concat(
+                      productIx,
+                      just(retryItem())
+                  ).toList()
+              );
+            }
           }
         }));
   }

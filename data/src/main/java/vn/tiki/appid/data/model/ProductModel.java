@@ -21,7 +21,7 @@ public class ProductModel {
   }
 
   public Single<List<Product>> products(Page page) {
-    return api.getProducts("")
+    return api.getProducts("", page.index())
         .map(new Function<ListResponse<Product>, List<Product>>() {
           @Override public List<Product> apply(ListResponse<Product> productListResponse)
               throws Exception {

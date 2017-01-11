@@ -17,9 +17,15 @@ import java.util.List;
 import javax.inject.Inject;
 import vn.tiki.appid.common.base.BaseFragment;
 import vn.tiki.appid.common.util.ImageLoader;
+import vn.tiki.appid.common.viewholder.LoadMoreViewHolder;
+import vn.tiki.appid.common.viewholder.RetryViewHolder;
+import vn.tiki.appid.common.widget.InfiniteScrollListener;
 import vn.tiki.appid.common.widget.SingleVisibleChildFrameLayout;
+import vn.tiki.appid.data.entity.LoadingItem;
+import vn.tiki.appid.data.entity.RetryItem;
 import vn.tiki.noadapter.AbsViewHolder;
 import vn.tiki.noadapter.OnlyAdapter;
+import vn.tiki.noadapter.TypeDeterminer;
 import vn.tiki.noadapter.ViewHolderSelector;
 
 /**
@@ -72,10 +78,11 @@ public class ProductListFragment extends BaseFragment implements ProductListView
   }
 
   private void setupProductListView() {
-    rvList.setLayoutManager(new LinearLayoutManager(
+    final LinearLayoutManager layoutManager = new LinearLayoutManager(
         getContext(),
         LinearLayoutManager.VERTICAL,
-        false));
+        false);
+    rvList.setLayoutManager(layoutManager);
 
     rvList.addItemDecoration(new DividerItemDecoration(
         getContext(),
@@ -83,16 +90,38 @@ public class ProductListFragment extends BaseFragment implements ProductListView
 
     rvList.setHasFixedSize(true);
 
-    adapter = productListAdapter();
+    rvList.addOnScrollListener(new InfiniteScrollListener(layoutManager) {
+      @Override public void onLoadMore(int currentPage) {
+        presenter.loadMoreProducts();
+      }
+    });
 
+    adapter = productListAdapter();
     rvList.setAdapter(adapter);
   }
 
   private OnlyAdapter productListAdapter() {
     return new OnlyAdapter.Builder()
+        .typeDeterminer(new TypeDeterminer() {
+          @Override public int typeOf(Object item) {
+            if (item instanceof LoadingItem) {
+              return 1;
+            } else if (item instanceof RetryItem) {
+              return 2;
+            }
+            return 0;
+          }
+        })
         .viewHolderSelector(new ViewHolderSelector() {
           @Override public AbsViewHolder viewHolderForType(ViewGroup parent, int type) {
-            return ProductListItemViewHolder.create(parent, imageLoader);
+            switch (type) {
+              case 1:
+                return LoadMoreViewHolder.create(parent);
+              case 2:
+                return RetryViewHolder.create(parent);
+              default:
+                return ProductListItemViewHolder.create(parent, imageLoader);
+            }
           }
         })
         .build();

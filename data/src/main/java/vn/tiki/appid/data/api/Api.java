@@ -11,7 +11,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.NoSuchElementException;
 import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 import vn.tiki.appid.data.entity.Product;
 
 /**
@@ -28,8 +30,25 @@ public class Api {
     this.gson = gson;
   }
 
-  public Single<ListResponse<Product>> getProducts(String categoryId) {
-    return read("products.json")
+  public Single<ListResponse<Product>> getProducts(String categoryId, int index) {
+    final String dataSource;
+    switch (index) {
+      case 1:
+        dataSource = "products_1.json";
+        break;
+      case 2:
+        dataSource = "products_2.json";
+        break;
+      default:
+        dataSource = "";
+        break;
+    }
+
+    if (dataSource.isEmpty()) {
+      return Single.error(new NoSuchElementException());
+    }
+
+    return read(dataSource)
         .map(new Function<String, ListResponse<Product>>() {
           @Override public ListResponse<Product> apply(String s) throws Exception {
             final TypeToken<ListResponse<Product>> typeToken =
@@ -62,6 +81,6 @@ public class Api {
           }
         }
       }
-    });
+    }).delay(1, TimeUnit.SECONDS);
   }
 }
