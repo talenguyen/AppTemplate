@@ -33,8 +33,10 @@ dependencies {
   compile libs.appCompatV7
   compile libs.dagger
   compile libs.noAdapter
+  compile libs.ixJava
 
   testCompile libs.junit
+  testCompile libs.mockito
   testCompile libs.robolectric
   androidTestCompile(libs.espressoCore, {
     exclude group: 'com.android.support', module: 'support-annotations'

@@ -10,6 +10,9 @@ import vn.tiki.appid.data.entity.Product;
 import vn.tiki.appid.data.exception.NetworkException;
 import vn.tiki.appid.data.model.ProductModel;
 
+import static ix.Ix.concat;
+import static ix.Ix.from;
+import static ix.Ix.just;
 import static java.util.Arrays.asList;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -17,9 +20,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
-import static vn.tiki.appid.common.util.Lists.listOf;
-import static vn.tiki.appid.common.util.Lists.merged;
-import static vn.tiki.appid.common.util.Lists.spread;
 import static vn.tiki.appid.data.entity.LoadingItem.loadingItem;
 import static vn.tiki.appid.data.entity.RetryItem.retryItem;
 
@@ -98,10 +98,11 @@ public class ProductListPresenterTest {
     presenter.loadProducts();
 
     verify(productListViewMocked).showProducts(
-        listOf(
-            spread(FIRST_PAGE_PRODUCTS_MOCKED),
-            new Object[] {loadingItem()}
-        ));
+        concat(
+            from(FIRST_PAGE_PRODUCTS_MOCKED),
+            just(loadingItem())
+        ).toList()
+    );
   }
 
   @Test
@@ -122,10 +123,10 @@ public class ProductListPresenterTest {
     presenter.loadMoreProducts();
 
     verify(productListViewMocked).showProducts(
-        listOf(
-            spread(FIRST_PAGE_PRODUCTS_MOCKED),
-            new Object[] { retryItem() }
-        )
+        concat(
+            from(FIRST_PAGE_PRODUCTS_MOCKED),
+            just(retryItem())
+        ).toList()
     );
   }
 
@@ -135,15 +136,11 @@ public class ProductListPresenterTest {
     presenter.loadMoreProducts();
 
     verify(productListViewMocked).showProducts(
-        listOf(
-            spread(
-                merged(
-                    FIRST_PAGE_PRODUCTS_MOCKED,
-                    SECOND_PAGE_PRODUCTS_MOCKED
-                )
-            ),
-            new Object[] { loadingItem() }
-        )
+        concat(
+            from(FIRST_PAGE_PRODUCTS_MOCKED),
+            from(SECOND_PAGE_PRODUCTS_MOCKED),
+            just(loadingItem())
+        ).toList()
     );
   }
 

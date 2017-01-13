@@ -16,13 +16,17 @@ import com.tiki.appid.product.R2;
 import java.util.List;
 import javax.inject.Inject;
 import vn.tiki.appid.common.base.BaseFragment;
+import vn.tiki.appid.common.pattern.list.ListPresenter;
+import vn.tiki.appid.common.pattern.list.ListView;
 import vn.tiki.appid.common.util.ImageLoader;
 import vn.tiki.appid.common.viewholder.LoadMoreViewHolder;
 import vn.tiki.appid.common.viewholder.RetryViewHolder;
 import vn.tiki.appid.common.widget.InfiniteScrollListener;
 import vn.tiki.appid.common.widget.SingleVisibleChildFrameLayout;
 import vn.tiki.appid.data.entity.LoadingItem;
+import vn.tiki.appid.data.entity.Product;
 import vn.tiki.appid.data.entity.RetryItem;
+import vn.tiki.appid.data.exception.NetworkException;
 import vn.tiki.noadapter.AbsViewHolder;
 import vn.tiki.noadapter.OnlyAdapter;
 import vn.tiki.noadapter.TypeDeterminer;
@@ -32,11 +36,11 @@ import vn.tiki.noadapter.ViewHolderSelector;
  * Created by Giang Nguyen on 12/31/16.
  */
 
-public class ProductListFragment extends BaseFragment implements ProductListView {
+public class ProductListFragment extends BaseFragment implements ListView {
 
   @BindView(R2.id.rvList) RecyclerView rvList;
   @BindView(R2.id.vRootView) SingleVisibleChildFrameLayout vRootView;
-  @Inject ProductListPresenter presenter;
+  @Inject ListPresenter<Product> presenter;
   @Inject ImageLoader imageLoader;
   private Unbinder unbinder;
   private OnlyAdapter adapter;
@@ -57,24 +61,24 @@ public class ProductListFragment extends BaseFragment implements ProductListView
 
     setupProductListView();
     presenter.attachView(this);
-    presenter.loadProducts();
+    presenter.getItems();
   }
 
   @Override public void showLoading() {
     vRootView.show(R.id.vLoading);
   }
 
-  @Override public void showNetworkError() {
-    vRootView.show(R.id.vErrorNetwork);
+  @Override public void showError(Throwable error) {
+    if (error instanceof NetworkException) {
+      vRootView.show(R.id.vErrorNetwork);
+    } else {
+      vRootView.show(R.id.vError);
+    }
   }
 
-  @Override public void showProducts(List<Object> products) {
+  @Override public void showItems(List<Object> products) {
     vRootView.show(R.id.rvList);
     adapter.setItems(products);
-  }
-
-  @Override public void showError() {
-    vRootView.show(R.id.vError);
   }
 
   private void setupProductListView() {
@@ -90,11 +94,11 @@ public class ProductListFragment extends BaseFragment implements ProductListView
 
     rvList.setHasFixedSize(true);
 
-    rvList.addOnScrollListener(new InfiniteScrollListener(layoutManager) {
-      @Override public void onLoadMore(int currentPage) {
-        presenter.loadMoreProducts();
+    rvList.addOnScrollListener(new InfiniteScrollListener(layoutManager, 3, new Runnable() {
+      @Override public void run() {
+        presenter.getMoreItems();
       }
-    });
+    }));
 
     adapter = productListAdapter();
     rvList.setAdapter(adapter);

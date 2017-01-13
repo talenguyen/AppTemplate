@@ -37,6 +37,9 @@ dependencies {
   compile libs.butterKnife
   annotationProcessor libs.butterKnifeCompiler
 
+  provided libs.autoValue
+  annotationProcessor libs.autoValue
+
   compile libs.noAdapter
   compile constraintLayout
   compile libs.glide
